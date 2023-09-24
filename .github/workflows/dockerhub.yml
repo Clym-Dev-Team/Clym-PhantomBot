@@ -33,11 +33,9 @@ jobs:
           file: ./Dockerfile
           platforms: linux/amd64
           push: true
-          cache-from: type=gha,scope=master
-          cache-to: type=gha,mode=max,scope=master
           build-args: |
             PROJECT_VERSION=${{  github.ref_name }}
-            ANT_ARGS=-Dbuildtype=stable  -Dversion=${{  github.ref_name }}}
+            ANT_ARGS=-Dbuildtype=stable -Dversion=${{  github.ref_name }}}
           tags: |
             ${{ secrets.DOCKER_USER }}/${{ secrets.DOCKER_REPO_STABLE }}:${{  github.ref_name }}-c
             ${{ secrets.DOCKER_USER }}/${{ secrets.DOCKER_REPO_STABLE }}:latest

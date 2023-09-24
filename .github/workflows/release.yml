@@ -1,7 +1,7 @@
 name: Build/Upload Release
 on:
   release:
-    types: [published]
+#    types: [published]
 jobs:
   buildtest:
     name: Test Build on ubuntu-latest with JDK 17
