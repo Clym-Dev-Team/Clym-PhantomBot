@@ -226,68 +226,6 @@
         }
     }
 
-    // [Start] Clym Dev Team Additions
-        function counter(args) {
-            var str = String(args).trim();
-            return { result: String($.inidb.get('deaths', str)),
-                cache: false};
-        }
-        /*
-         * @transformer days
-         * @formula (days) number of days sender has spent in chat, emits unecessary zeros and seconds
-         * @formula (days user:str) number of days the provided user has spent in chat, emits unecessary zeros and seconds
-         * @cached
-         */
-        function days(args, event) {
-            var user;
-            if ((match = args.match(/^(?: (.*))?$/))) {
-                user = (match[1] || '').replace(/^@/, '');
-                if (user.length === 0) {
-                    user = String(event.getSender());
-                }
-                var seconds = $.getUserTime(user);
-                var minutes = Math.floor(seconds / 60);
-                var hours = Math.floor(minutes / 60);
-                var days = Math.floor(hours / 24);
-                var modHrs = hours % 24;
-                var modMins = minutes % 60;
-                var resArray = [];
-                if (days > 0) {
-                    resArray.push(days + " Tag" + (days > 1 ? "e" : ""));
-                }
-                if (modHrs > 0) {
-                    resArray.push(modHrs + " Stunde" + (modHrs > 1 ? "n" : ""));
-                }
-                if (modMins > 0) {
-                    resArray.push(modMins + " Minute" + (modMins > 1 ? "n" : ""));
-                }
-                switch (resArray.length) {
-                    case 0:
-                        resArray.push("0 Minuten");
-                        break;
-                    case 2:
-                        resArray[0] += " und ";
-                        break;
-                    case 3:
-                        resArray[0] += ", ";
-                        resArray[1] += " und ";
-                        break;
-                    default:
-                        break;
-                }
-                var res = "";
-                for (var i=0; i<resArray.length; i++) {
-                    res += resArray[i];
-                }
-                return {
-                    result: String(res),
-                    cache: true
-                };
-            }
-        }
-        // [End] Clym Dev Team Additions
-
-
     /*
      * @transformer hoursround
      * @formula (hoursround) number of hours sender has spent in chat, with the value rounded to the nearest tenth of an hour

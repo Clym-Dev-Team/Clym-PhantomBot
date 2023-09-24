@@ -43,37 +43,19 @@
 
     /*
      * @event command
-     * This function was modified by the Clym Dev Team to be a general purpose Counter instead of a deathCounter
-     * For that we repurposed the game name as an counter name and gave the command caller a way to specify the counter
-     * This Counter can still be used a an Death Counter by giving the game name as the parameter for the name of the counter
      */
     $.bind('command', function(event) {
         var sender = event.getSender(),
             command = event.getCommand(),
             args = event.getArgs(),
             action = args[0],
-            game = "";
-            amount = 1;
-            amount_given = false;
-
-        // Make the amount Optional
-        if !isNaN(args[1]) { //isNaN => false means the argument is a Number, or emtpy whitespace
-            amount = 0+args[1]
-            game = args.slice(2).join(' ');
-            amount_given = true;
-        } else {
-            amount = 1;
-            game = args.slice(1).join(' ');
-            amount_given = false;
-        }
+            game = ($.jsString($.getGame($.channelName)) !== '' ? $.getGame($.channelName) : 'Some Game');
 
         /*
-         * @commandpath counter - Display the current number of deaths in game being played.
+         * @commandpath deathctr - Display the current number of deaths in game being played.
          */
-
-        if (command.equalsIgnoreCase('counter')) {
-            var deathCounter = parseInt($.inidb.get('deaths', game));
-          
+        if ($.equalsIgnoreCase(command, 'deathctr')) {
+            var deathCounter = parseInt($.getIniDbString('deaths', game));
             var noDeathExists = isNaN(parseInt(deathCounter)) || parseInt(deathCounter) === 0 ? (deathCounter = 0, true) : (false);
             if (action === undefined) {
                 if (noDeathExists) {
@@ -83,7 +65,7 @@
                 }
             } else {
                 /*
-                 * @commandpath counter reset - Reset the death counter for the game being played.
+                 * @commandpath deathctr reset - Reset the death counter for the game being played.
                  */
                 if ($.equalsIgnoreCase(action, 'reset')) {
                     if (noDeathExists) {
@@ -97,44 +79,42 @@
                 }
 
                 /*
-                 * @commandpath counter set [number] - Set the death counter for the game being played.
+                 * @commandpath deathctr set [number] - Set the death counter for the game being played.
                  */
-
-                if (action.equalsIgnoreCase('set')) {
-                    if (amount_given == false) {
-
+                if ($.equalsIgnoreCase(action, 'set')) {
+                    if (isNaN(parseInt(args[1]))) {
                         $.say($.whisperPrefix(sender) + $.lang.get('deathcounter.set-error'));
                         return;
                     } else {
                         var setDeath = parseInt(args[1]);
-                        $.say($.whisperPrefix(sender) + $.lang.get('deathcounter.set-success', game, amount));
-                        $.inidb.set('deaths', game, amount);
+                        $.say($.whisperPrefix(sender) + $.lang.get('deathcounter.set-success', game, setDeath));
+                        $.inidb.set('deaths', game, setDeath);
                         $.deathUpdateFile(game);
                         return;
                     }
                 }
 
                 /*
-                 * @commandpath counter incr - Add one to the death counter for the game being played.
+                 * @commandpath deathctr incr - Add one to the death counter for the game being played.
                  */
-                if (action.equalsIgnoreCase('add') || action.equalsIgnoreCase('incr') || action.equalsIgnoreCase('+')) {
-                    $.say($.lang.get('deathcounter.add-success', $.ownerName, game, ($.getIniDbNumber('deaths', game, 0) + amount)));
-                    $.inidb.incr('deaths', game, amount);
+                if ($.equalsIgnoreCase(action, 'add') || $.equalsIgnoreCase(action, 'incr') || $.equalsIgnoreCase(action, '+')) {
+                    $.say($.lang.get('deathcounter.add-success', $.ownerName, game, ($.getIniDbNumber('deaths', game, 0) + 1)));
+                    $.inidb.incr('deaths', game, 1);
                     $.deathUpdateFile(game);
                     return;
                 }
 
                 /*
-                 * @commandpath counter decr - Subtract one from the death counter for the game being played.
+                 * @commandpath deathctr decr - Subtract one from the death counter for the game being played.
                  */
-                if (action.equalsIgnoreCase('sub') || action.equalsIgnoreCase('decr') || action.equalsIgnoreCase('-')) {
-                    if (isNaN(parseInt($.inidb.get('deaths', game))) || parseInt($.inidb.get('deaths', game)) - amount < 0) {
+                if ($.equalsIgnoreCase(action, 'sub') || $.equalsIgnoreCase(action, 'decr') || $.equalsIgnoreCase(action, '-')) {
+                    if (isNaN(parseInt($.getIniDbString('deaths', game))) || parseInt($.getIniDbString('deaths', game)) === 0) {
                         $.say($.lang.get('deathcounter.sub-zero', game));
                         return;
                     }
 
-                    $.say($.lang.get('deathcounter.sub-success', game, ($.getIniDbNumber('deaths', game, 0) - amount)));
-                    $.inidb.decr('deaths', game, amount);
+                    $.say($.lang.get('deathcounter.sub-success', game, ($.getIniDbNumber('deaths', game, 0) - 1)));
+                    $.inidb.decr('deaths', game, 1);
                     $.deathUpdateFile(game);
                     return;
                 }
@@ -146,18 +126,16 @@
      * @event initReady
      */
     $.bind('initReady', function() {
-        $.registerChatCommand('./commands/deathctrCommand.js', 'counter', $.PERMISSION.Viewer);
+        $.registerChatCommand('./commands/deathctrCommand.js', 'deathctr', $.PERMISSION.Viewer);
 
-        $.registerChatSubcommand('counter', 'reset', $.PERMISSION.Mod);
-        $.registerChatSubcommand('counter', 'set', $.PERMISSION.Mod);
-        $.registerChatSubcommand('counter', 'add', $.PERMISSION.Mod);
-        $.registerChatSubcommand('counter', 'incr', $.PERMISSION.Mod);
-        $.registerChatSubcommand('counter', '+', $.PERMISSION.Mod);
-        $.registerChatSubcommand('counter', 'sub', $.PERMISSION.Mod);
-        $.registerChatSubcommand('counter', 'decr', $.PERMISSION.Mod);
-        $.registerChatSubcommand('counter', '-', $.PERMISSION.Mod);
-
-        $.registerChatCommand('./commands/deathctrCommand.js', 'c', $.PERMISSION.Mod);
+        $.registerChatSubcommand('deathctr', 'reset', $.PERMISSION.Mod);
+        $.registerChatSubcommand('deathctr', 'set', $.PERMISSION.Mod);
+        $.registerChatSubcommand('deathctr', 'add', $.PERMISSION.Mod);
+        $.registerChatSubcommand('deathctr', 'incr', $.PERMISSION.Mod);
+        $.registerChatSubcommand('deathctr', '+', $.PERMISSION.Mod);
+        $.registerChatSubcommand('deathctr', 'sub', $.PERMISSION.Mod);
+        $.registerChatSubcommand('deathctr', 'decr', $.PERMISSION.Mod);
+        $.registerChatSubcommand('deathctr', '-', $.PERMISSION.Mod);
 
         setInterval(function() {
             deathUpdateFile(($.jsString($.getGame($.channelName)) !== '' ? $.getGame($.channelName) : 'Some Game'));
