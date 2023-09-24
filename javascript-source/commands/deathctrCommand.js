@@ -45,16 +45,38 @@
      * @event command
      */
     $.bind('command', function(event) {
+        //Utility Functions \/
+        function getArgIndex(args) {
+            var input = args;
+            const regex = /(add|set|reset|-|decr|sub|\+|incr)/;
+
+            var i = 0;
+            while (!regex.test(input[i]) && i < input.length) {
+                i++;
+            }
+            return i;
+        }
+
+
+        function joinUntil(index, args) {
+            var str = args;
+            str = str.slice(0, index);
+            str = str.join(' ');
+            return String(str);
+        }
+        //Utility Functions End
+
         var sender = event.getSender(),
             command = event.getCommand(),
             args = event.getArgs(),
-            action = args[0],
-            game = ($.jsString($.getGame($.channelName)) !== '' ? $.getGame($.channelName) : 'Some Game');
+            argIndex = getArgIndex(args);
+        action = args[argIndex],
+            game = joinUntil(argIndex, args);
 
         /*
-         * @commandpath deathctr - Display the current number of deaths in game being played.
+         * @commandpath counter - Display the current number of deaths in game being played.
          */
-        if (command.equalsIgnoreCase('deathctr')) {
+        if (command.equalsIgnoreCase('counter') || command.equalsIgnoreCase('c')) {
             var deathCounter = parseInt($.inidb.get('deaths', game));
             var noDeathExists = isNaN(parseInt(deathCounter)) || parseInt(deathCounter) === 0 ? (deathCounter = 0, true) : (false);
             if (action === undefined) {
@@ -65,7 +87,7 @@
                 }
             } else {
                 /*
-                 * @commandpath deathctr reset - Reset the death counter for the game being played.
+                 * @commandpath counter reset - Reset the death counter for the game being played.
                  */
                 if (action.equalsIgnoreCase('reset')) {
                     if (noDeathExists) {
@@ -79,14 +101,14 @@
                 }
 
                 /*
-                 * @commandpath deathctr set [number] - Set the death counter for the game being played.
+                 * @commandpath counter set [number] - Set the death counter for the game being played.
                  */
                 if (action.equalsIgnoreCase('set')) {
-                    if (isNaN(parseInt(args[1]))) {
+                    if (isNaN(parseInt(argIndex + 1))) {
                         $.say($.whisperPrefix(sender) + $.lang.get('deathcounter.set-error'));
                         return;
                     } else {
-                        var setDeath = parseInt(args[1]);
+                        var setDeath = parseInt(argIndex + 1);
                         $.say($.whisperPrefix(sender) + $.lang.get('deathcounter.set-success', game, setDeath));
                         $.inidb.set('deaths', game, setDeath);
                         $.deathUpdateFile(game);
@@ -95,7 +117,7 @@
                 }
 
                 /*
-                 * @commandpath deathctr incr - Add one to the death counter for the game being played.
+                 * @commandpath counter incr - Add one to the death counter for the game being played.
                  */
                 if (action.equalsIgnoreCase('add') || action.equalsIgnoreCase('incr') || action.equalsIgnoreCase('+')) {
 
@@ -106,7 +128,7 @@
                 }
 
                 /*
-                 * @commandpath deathctr decr - Subtract one from the death counter for the game being played.
+                 * @commandpath counter decr - Subtract one from the death counter for the game being played.
                  */
                 if (action.equalsIgnoreCase('sub') || action.equalsIgnoreCase('decr') || action.equalsIgnoreCase('-')) {
                     if (isNaN(parseInt($.inidb.get('deaths', game))) || parseInt($.inidb.get('deaths', game)) === 0) {
@@ -127,19 +149,22 @@
      * @event initReady
      */
     $.bind('initReady', function() {
-        $.registerChatCommand('./commands/deathctrCommand.js', 'deathctr', 7);
+        $.registerChatCommand('./commands/deathctrCommand.js', 'counter', 7);
 
-        $.registerChatSubcommand('deathctr', 'reset', 2);
-        $.registerChatSubcommand('deathctr', 'set', 2);
-        $.registerChatSubcommand('deathctr', 'add', 2);
-        $.registerChatSubcommand('deathctr', 'incr', 2);
-        $.registerChatSubcommand('deathctr', '+', 2);
-        $.registerChatSubcommand('deathctr', 'sub', 2);
-        $.registerChatSubcommand('deathctr', 'decr', 2);
-        $.registerChatSubcommand('deathctr', '-', 2);
+        $.registerChatSubcommand('counter', 'reset', 2);
+        $.registerChatSubcommand('counter', 'set', 2);
+        $.registerChatSubcommand('counter', 'add', 2);
+        $.registerChatSubcommand('counter', 'incr', 2);
+        $.registerChatSubcommand('counter', '+', 2);
+        $.registerChatSubcommand('counter', 'sub', 2);
+        $.registerChatSubcommand('counter', 'decr', 2);
+        $.registerChatSubcommand('counter', '-', 2);
+
+        //counter shortcut
+        $.registerChatCommand('./commands/deathctrCommand.js', 'c', 7);
 
         setInterval(function() {
-            deathUpdateFile(($.jsString($.getGame($.channelName)) !== '' ? $.getGame($.channelName) : 'Some Game'));
+            deathUpdateFile(($.getGame($.channelName) != '' ? $.getGame($.channelName) : 'Some Game'));
         }, 10000);
     });
 

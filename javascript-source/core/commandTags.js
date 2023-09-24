@@ -55,13 +55,13 @@
 
     var transformers = (function () {
         var cmd,
-                flag,
-                i,
-                j,
-                keys,
-                match,
-                temp,
-                transformers;
+            flag,
+            i,
+            j,
+            keys,
+            match,
+            temp,
+            transformers;
 
         /*
          * @transformer randomInt
@@ -213,8 +213,8 @@
          */
         function code(args) {
             var code,
-                    length,
-                    temp = '';
+                length,
+                temp = '';
             if ((match = args.match(/^(?:=|\s)([1-9]\d*)$/))) {
                 code = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
                 length = parseInt(match[1]);
@@ -330,6 +330,13 @@
             }
         }
 
+        function counter(args) {
+            var str = String(args).trim();
+            return { result: String($.inidb.get('deaths', str)),
+                cache: false};
+        }
+
+
         /*
          * @transformer currenttime
          * @formula (currenttime timezone:str, format:str) shows the current date/time in given timezone, using the provided output format
@@ -404,12 +411,12 @@
         var JSONObject = Packages.org.json.JSONObject;
         function customapijson(args, event) {
             var customJSONStringTag,
-                    jsonCheckList,
-                    jsonItems,
-                    jsonObject,
-                    response,
-                    responsePart,
-                    result = '';
+                jsonCheckList,
+                jsonItems,
+                jsonObject,
+                response,
+                responsePart,
+                result = '';
             if ((match = args.match(/^ (\S+) (.+)$/))) {
                 cmd = event.getCommand();
                 if (match[1].indexOf('(token)') !== -1 && $.inidb.HasKey('commandtoken', '', cmd)) {
@@ -501,7 +508,66 @@
         }
 
         /*
-         * @transformer downtime
+         * @transformer days
+         * @formula (days) number of days sender has spent in chat, emits unecessary zeros and seconds
+         * @formula (days user:str) number of days the provided user has spent in chat, emits unecessary zeros and seconds
+         * @cached
+         */
+        function days(args, event) {
+            var user;
+            if ((match = args.match(/^(?: (.*))?$/))) {
+                user = (match[1] || '').replace(/^@/, '');
+                if (user.length === 0) {
+                    user = String(event.getSender());
+                }
+                var seconds = $.getUserTime(user);
+                var minutes = Math.floor(seconds / 60);
+                var hours = Math.floor(minutes / 60);
+                var days = Math.floor(hours / 24);
+
+                var modHrs = hours % 24;
+                var modMins = minutes % 60;
+
+                var resArray = [];
+                if (days > 0) {
+                    resArray.push(days + " Tag" + (days > 1 ? "e" : ""));
+                }
+                if (modHrs > 0) {
+                    resArray.push(modHrs + " Stunde" + (modHrs > 1 ? "n" : ""));
+                }
+                if (modMins > 0) {
+                    resArray.push(modMins + " Minute" + (modMins > 1 ? "n" : ""));
+                }
+
+                switch (resArray.length) {
+                    case 0:
+                        resArray.push("0 Minuten");
+                        break;
+                    case 2:
+                        resArray[0] += " und ";
+                        break;
+                    case 3:
+                        resArray[0] += ", ";
+                        resArray[1] += " und ";
+                        break;
+                    default:
+                        break;
+                }
+
+                var res = "";
+                for (var i=0; i<resArray.length; i++) {
+                    res += resArray[i];
+                }
+
+                return {
+                    result: String(res),
+                    cache: true
+                };
+            }
+        }
+
+        /*
+         * @transformer
          * @formula (downtime) how long the channel has been offline
          * @cached
          */
@@ -567,7 +633,7 @@
          */
         function followage(args, event) {
             var channel,
-                    user;
+                user;
             if ((match = args.match(/^(?: (\S*)(?: (.*))?)?$/))) {
                 user = (match[1] || '').replace(/^@/, '');
                 channel = (match[2] || '').replace(/^@/, '');
@@ -591,7 +657,7 @@
          */
         function followdate(args, event) {
             var channel,
-                    user;
+                user;
             if ((match = args.match(/^(?: (\S*)(?: (.*))?)?$/))) {
                 user = (match[1] || '').replace(/^@/, '');
                 channel = (match[2] || '').replace(/^@/, '');
@@ -652,7 +718,7 @@
          */
         function gameinfo(args) {
             var game,
-                    playtime;
+                playtime;
             if (!args) {
                 game = $.getGame($.channelName);
                 if (!game.trim()) {
@@ -814,7 +880,7 @@
          */
         function keywordcount(args) {
             var keyword,
-                    keywordInfo;
+                keywordInfo;
             if ((match = args.match(/^\s(.+)$/))) {
                 keyword = match[1];
                 if ($.inidb.exists('keywords', keyword)) {
@@ -1131,7 +1197,7 @@
          */
         function repeat(args) {
             var MAX_COUNTER_VALUE = 30,
-                    n;
+                n;
             if ((match = args.match(/^\s([1-9]\d*),\s?(.*)$/))) {
                 if (!match[2]) {
                     return {result: ''};
@@ -1245,7 +1311,7 @@
          */
         function team_member_followers(args) {
             var teamObj,
-                    teamMember;
+                teamMember;
             if ((match = args.match(/^ ([a-zA-Z0-9-_]+),\s([a-zA-Z0-9_]+)$/))) {
                 teamObj = $.twitchteamscache.getTeam(match[1]);
                 if (teamObj !== null) {
@@ -1278,7 +1344,7 @@
          */
         function team_member_game(args) {
             var teamObj,
-                    teamMember;
+                teamMember;
             if ((match = args.match(/^ ([a-zA-Z0-9-_]+),\s([a-zA-Z0-9_]+)$/))) {
                 teamObj = $.twitchteamscache.getTeam(match[1]);
                 if (teamObj !== null) {
@@ -1311,7 +1377,7 @@
          */
         function team_member_url(args) {
             var teamObj,
-                    teamMember;
+                teamMember;
             if ((match = args.match(/^ ([a-zA-Z0-9-_]+),\s([a-zA-Z0-9_]+)$/))) {
                 teamObj = $.twitchteamscache.getTeam(match[1]);
                 if (teamObj !== null) {
@@ -1464,10 +1530,10 @@
 
         /*
          * @transformer touser
-         * @formula (touser) display name of the user provided as an argument by the sender; sender's display name if no other is provided
+         * @formula (touser) display name of the user provided as an argument by the sender; empty if no other is provided
          * @example Caster: !addcom !twitter (touser) Hey! Follow my Twitter!
          * User: !twitter
-         * Bot: User Hey! Follow my Twitter!
+         * Bot: Hey! Follow my Twitter!
          *
          * User: !twitter User2
          * Bot: User2 Hey! Follow my Twitter!
@@ -1477,12 +1543,13 @@
             temp = '';
             if (event.getArgs().length > 0) {
                 temp = $.jsString(event.getArgs()[0]).replace(/[^a-zA-Z0-9_]/g, '');
-            }
-            if (temp.length === 0) {
-                temp = event.getSender();
+                return {
+                    result: "@" + String($.username.resolve(temp)),
+                    cache: true
+                };
             }
             return {
-                result: String($.username.resolve(temp)),
+                result: '',
                 cache: true
             };
         }
@@ -1615,9 +1682,11 @@
             'count': count,
             'countdown': countdown,
             'countup': countup,
+            'counter':counter,
             'currenttime': currenttime,
             'customapi': customapi,
             'customapijson': customapijson,
+            'days': days,
             'downtime': downtime,
             'echo': echo,
             'encodeurl': encodeurl,
@@ -1689,9 +1758,9 @@
      */
     function tags(event, message, atEnabled, localTransformers, disableGlobalTransformers) {
         var match,
-                tagFound = false,
-                transformed,
-                transformCache = {};
+            tagFound = false,
+            transformed,
+            transformCache = {};
 
         if (atEnabled === undefined) {
             atEnabled = false;
@@ -1708,18 +1777,18 @@
         message += '';  // make sure this is a JS string, not a Java string
         while ((match = message.match(/(?:[^\\]|^)(\(([^\\\s\|=()]*)([\s=\|](?:\\\(|\\\)|[^()])*)?\))/))) {
             var wholeMatch = match[1],
-                    tagName = match[2].toLowerCase(),
-                    tagArgs = match[3] ? unescapeTags(match[3]) : '',
-                    thisTagFound = false;
+                tagName = match[2].toLowerCase(),
+                tagArgs = match[3] ? unescapeTags(match[3]) : '',
+                thisTagFound = false;
             if (transformCache.hasOwnProperty(wholeMatch)) {
                 $.replace(message, wholeMatch, transformCache[wholeMatch]);
                 thisTagFound = true;
             } else {
                 if (localTransformers.hasOwnProperty(tagName)
-                        && (transformed = localTransformers[tagName](tagArgs, event))) {
+                    && (transformed = localTransformers[tagName](tagArgs, event))) {
                     thisTagFound = true;
                 } else if (!disableGlobalTransformers && transformers.hasOwnProperty(tagName)
-                        && (transformed = transformers[tagName](tagArgs, event))) {
+                    && (transformed = transformers[tagName](tagArgs, event))) {
                     thisTagFound = true;
                 }
 
@@ -1748,9 +1817,9 @@
 
         // custom commands without tags can be directed towards users by mods
         if (tagFound === -1
-                && atEnabled
-                && event.getArgs()[0] !== undefined
-                && $.isModv3(event.getSender(), event.getTags())) {
+            && atEnabled
+            && event.getArgs()[0] !== undefined
+            && $.isModv3(event.getSender(), event.getTags())) {
             return event.getArgs()[0] + ' -> ' + unescapeTags(message);
         }
 
