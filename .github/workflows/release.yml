@@ -8,7 +8,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Checkout Repository
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
     - name: Set up JDK 17
       uses: actions/setup-java@v3
       with:
@@ -30,18 +30,18 @@ jobs:
           - 5000:5000
     steps:
     - name: Checkout Repository
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
     - name: Set up QEMU
-      uses: docker/setup-qemu-action@v2
+      uses: docker/setup-qemu-action@v3
       with:
         platforms: linux/amd64
     - name: Set up Docker Buildx
-      uses: docker/setup-buildx-action@v2
+      uses: docker/setup-buildx-action@v3
       with:
         version: latest
         driver-opts: network=host
     - name: Build Docker
-      uses: docker/build-push-action@v4
+      uses: docker/build-push-action@v5
       with:
         context: .
         file: ./Dockerfile
@@ -62,7 +62,7 @@ jobs:
     needs: [buildtest, dockertest]
     steps:
     - name: Checkout Repository
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
     - name: Copy Files
       run: |
         echo ::group::update docs/panel-stable/
@@ -95,7 +95,7 @@ jobs:
     needs: [buildtest, dockertest]
     steps:
     - name: Checkout Repository
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
     - name: Copy Files
       run: |
         echo ::group::update docs/guides/content-stable/
@@ -122,7 +122,7 @@ jobs:
     needs: [buildtest, dockertest]
     steps:
     - name: Checkout Repository
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
     - name: Copy Files
       run: |
         echo ::group::update docs/javadoc-stable/
@@ -148,7 +148,7 @@ jobs:
     needs: [updateremotepanel, updateguides, javadoc]
     steps:
     - name: Checkout Repository
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
       with:
         token: ${{ secrets.GH_TOKEN }}
         ref: 'master'
@@ -244,7 +244,7 @@ jobs:
     needs: [buildtest, dockertest, workflowvars]
     steps:
     - name: Checkout Repository
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
     - name: Set up JDK 17
       uses: actions/setup-java@v3
       with:
@@ -284,6 +284,7 @@ jobs:
         FOLDERWIN: ${{ format('PhantomBot-{0}-win', needs.workflowvars.outputs.version) }}
         FOLDERMAC: ${{ format('PhantomBot-{0}-mac', needs.workflowvars.outputs.version) }}
         FOLDERARM64: ${{ format('PhantomBot-{0}-arm64-apple_silicon', needs.workflowvars.outputs.version) }}
+        FOLDERARM32: ${{ format('PhantomBot-{0}-arm32', needs.workflowvars.outputs.version) }}
         FOLDERBOT: ${{ format('PhantomBot-{0}-bot_only', needs.workflowvars.outputs.version) }}
       run: |
         echo ::group::rsync $FOLDERFULL
@@ -292,23 +293,27 @@ jobs:
         echo ::endgroup::
         echo ::group::rsync $FOLDERLIN
         mkdir dist/$FOLDERLIN
-        rsync -rav --progress dist/$FOLDERBASE dist/$FOLDERLIN --exclude java-runtime --exclude java-runtime-arm64 --exclude java-runtime-macos --exclude launch.bat --exclude launch.ps1 --exclude launch-bsd.sh --exclude launch-bsd-service.sh --exclude launch-docker.sh --exclude docker-entrypoint.sh --exclude restartbot-windows.bat --exclude restartbot-docker.sh
+        rsync -rav --progress dist/$FOLDERBASE dist/$FOLDERLIN --exclude java-runtime --exclude java-runtime-arm64 --exclude java-runtime-arm32 --exclude java-runtime-macos --exclude launch.bat --exclude launch.ps1 --exclude launch-bsd.sh --exclude launch-bsd-service.sh --exclude launch-docker.sh --exclude docker-entrypoint.sh --exclude restartbot-windows.bat --exclude restartbot-docker.sh
         echo ::endgroup::
         echo ::group::rsync $FOLDERWIN
         mkdir dist/$FOLDERWIN
-        rsync -rav --progress dist/$FOLDERBASE dist/$FOLDERWIN --exclude java-runtime-linux --exclude java-runtime-arm64 --exclude java-runtime-macos --exclude launch.sh --exclude launch-service.sh --exclude launch-bsd.sh --exclude launch-bsd-service.sh --exclude launch-docker.sh --exclude docker-entrypoint.sh  --exclude restartbot-systemctl.sh --exclude restartbot-systemv.sh --exclude restartbot-docker.sh
+        rsync -rav --progress dist/$FOLDERBASE dist/$FOLDERWIN --exclude java-runtime-linux --exclude java-runtime-arm64 --exclude java-runtime-arm32 --exclude java-runtime-macos --exclude launch.sh --exclude launch-service.sh --exclude launch-bsd.sh --exclude launch-bsd-service.sh --exclude launch-docker.sh --exclude docker-entrypoint.sh  --exclude restartbot-systemctl.sh --exclude restartbot-systemv.sh --exclude restartbot-docker.sh
         echo ::endgroup::
         echo ::group::rsync $FOLDERMAC
         mkdir dist/$FOLDERMAC
-        rsync -rav --progress dist/$FOLDERBASE dist/$FOLDERMAC --exclude java-runtime --exclude java-runtime-arm64 --exclude java-runtime-linux --exclude launch.bat --exclude launch.ps1 --exclude launch-bsd.sh --exclude launch-bsd-service.sh --exclude launch-docker.sh --exclude docker-entrypoint.sh --exclude restartbot-windows.bat --exclude restartbot-docker.sh
+        rsync -rav --progress dist/$FOLDERBASE dist/$FOLDERMAC --exclude java-runtime --exclude java-runtime-arm64 --exclude java-runtime-arm32 --exclude java-runtime-linux --exclude launch.bat --exclude launch.ps1 --exclude launch-bsd.sh --exclude launch-bsd-service.sh --exclude launch-docker.sh --exclude docker-entrypoint.sh --exclude restartbot-windows.bat --exclude restartbot-docker.sh
         echo ::endgroup::
         echo ::group::rsync $FOLDERARM64
         mkdir dist/$FOLDERARM64
-        rsync -rav --progress dist/$FOLDERBASE dist/$FOLDERARM64 --exclude java-runtime --exclude java-runtime-linux --exclude java-runtime-macos --exclude launch.bat --exclude launch.ps1 --exclude launch-bsd.sh --exclude launch-bsd-service.sh --exclude launch-docker.sh --exclude docker-entrypoint.sh --exclude restartbot-windows.bat --exclude restartbot-docker.sh
+        rsync -rav --progress dist/$FOLDERBASE dist/$FOLDERARM64 --exclude java-runtime --exclude java-runtime-linux --exclude java-runtime-arm32 --exclude java-runtime-macos --exclude launch.bat --exclude launch.ps1 --exclude launch-bsd.sh --exclude launch-bsd-service.sh --exclude launch-docker.sh --exclude docker-entrypoint.sh --exclude restartbot-windows.bat --exclude restartbot-docker.sh
+        echo ::endgroup::
+        echo ::group::rsync $FOLDERARM32
+        mkdir dist/$FOLDERARM32
+        rsync -rav --progress dist/$FOLDERBASE dist/$FOLDERARM32 --exclude java-runtime --exclude java-runtime-linux --exclude java-runtime-arm64 --exclude java-runtime-macos --exclude launch.bat --exclude launch.ps1 --exclude launch-bsd.sh --exclude launch-bsd-service.sh --exclude launch-docker.sh --exclude docker-entrypoint.sh --exclude restartbot-windows.bat --exclude restartbot-docker.sh
         echo ::endgroup::
         echo ::group::rsync $FOLDERBOT
         mkdir dist/$FOLDERBOT
-        rsync -rav --progress dist/$FOLDERBASE dist/$FOLDERBOT --exclude java-runtime --exclude java-runtime-linux --exclude java-runtime-arm64 --exclude java-runtime-macos --exclude launch-docker.sh --exclude docker-entrypoint.sh --exclude restartbot-docker.sh
+        rsync -rav --progress dist/$FOLDERBASE dist/$FOLDERBOT --exclude java-runtime --exclude java-runtime-linux --exclude java-runtime-arm64 --exclude java-runtime-arm32 --exclude java-runtime-macos --exclude launch-docker.sh --exclude docker-entrypoint.sh --exclude restartbot-docker.sh
         echo ::endgroup::
         cd dist
         rm -rf $FOLDERBASE
@@ -352,6 +357,14 @@ jobs:
         mv -v $FOLDERBASE/$FOLDERARM64.zip ./$FOLDERARM64.zip
         rm -rf $FOLDERBASE
         echo ::endgroup::
+        echo ::group::zip $FOLDERARM32
+        mv -v $FOLDERARM32 $FOLDERBASE
+        cd $FOLDERBASE
+        zip -m -9 -X -r $FOLDERARM32.zip $FOLDERBASE
+        cd ..
+        mv -v $FOLDERBASE/$FOLDERARM32.zip ./$FOLDERARM32.zip
+        rm -rf $FOLDERBASE
+        echo ::endgroup::
         echo ::group::zip $FOLDERBOT
         mv -v $FOLDERBOT $FOLDERBASE
         cd $FOLDERBASE
@@ -369,6 +382,7 @@ jobs:
           ${{ format('dist/PhantomBot-{0}-win.zip', needs.workflowvars.outputs.version) }}
           ${{ format('dist/PhantomBot-{0}-mac.zip', needs.workflowvars.outputs.version) }}
           ${{ format('dist/PhantomBot-{0}-arm64-apple_silicon.zip', needs.workflowvars.outputs.version) }}
+          ${{ format('dist/PhantomBot-{0}-arm32.zip', needs.workflowvars.outputs.version) }}
           ${{ format('dist/PhantomBot-{0}-bot_only.zip', needs.workflowvars.outputs.version) }}
     - name: Notify Rollbar of Deploy Failure
       if: ${{ contains(needs.workflowvars.outputs.rollbarmissing, 'no') && (failure() || cancelled()) }}
@@ -406,24 +420,24 @@ jobs:
     needs: [buildtest, dockertest, workflowvars]
     steps:
     - name: Checkout Repository
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
     - name: Set up QEMU
-      uses: docker/setup-qemu-action@v2
+      uses: docker/setup-qemu-action@v3
       with:
-        platforms: linux/amd64,linux/arm64
+        platforms: linux/amd64,linux/arm64,linux/arm/v7
     - name: Set up Docker Buildx
-      uses: docker/setup-buildx-action@v2
+      uses: docker/setup-buildx-action@v3
       with:
         version: latest
     - name: Login to DockerHub Registry
       if: contains(needs.workflowvars.outputs.dockermissing, 'no')
-      uses: docker/login-action@v2
+      uses: docker/login-action@v3
       with:
         username: ${{ secrets.DOCKER_USER }}
         password: ${{ secrets.DOCKER_CLITOKEN }}
         logout: true
     - name: Login to GitHub Container Registry
-      uses: docker/login-action@v2
+      uses: docker/login-action@v3
       with:
         registry: ghcr.io
         username: ${{ github.repository_owner }}
@@ -449,11 +463,11 @@ jobs:
         echo $?
     - name: Build and Push DockerHub
       if: contains(needs.workflowvars.outputs.dockermissing, 'no')
-      uses: docker/build-push-action@v4
+      uses: docker/build-push-action@v5
       with:
         context: .
         file: ./Dockerfile
-        platforms: linux/amd64,linux/arm64
+        platforms: linux/amd64,linux/arm64,linux/arm/v7
         push: true
         cache-from: type=gha,scope=master
         cache-to: type=gha,mode=max,scope=master
@@ -464,11 +478,11 @@ jobs:
           ${{ secrets.DOCKER_USER }}/${{ secrets.DOCKER_REPO_STABLE }}:${{ needs.workflowvars.outputs.version }}
           ${{ secrets.DOCKER_USER }}/${{ secrets.DOCKER_REPO_STABLE }}:latest
     - name: Build and Push GitHub Containers
-      uses: docker/build-push-action@v4
+      uses: docker/build-push-action@v5
       with:
         context: .
         file: ./Dockerfile
-        platforms: linux/amd64,linux/arm64
+        platforms: linux/amd64,linux/arm64,linux/arm/v7
         push: true
         cache-from: type=gha,scope=master
         cache-to: type=gha,mode=max,scope=master

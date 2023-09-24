@@ -317,7 +317,7 @@
      */
     function lasttip() {
         return {
-            result: $.inidb.GetString('donations', '', 'last_donation_message', $.lang.get('customcommands.lasttip.404')),
+            result: $.getIniDbString('donations', 'last_donation_message', $.lang.get('customcommands.lasttip.404')),
             cache: true
         };
     }

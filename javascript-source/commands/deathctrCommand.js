@@ -29,7 +29,7 @@
      */
     function deathUpdateFile(game) {
         var deathFile = './addons/deathctr/deathctr.txt',
-            deathCounter = parseInt($.inidb.get('deaths', game));
+            deathCounter = parseInt($.getIniDbString('deaths', game));
 
         if (!$.isDirectory('./addons/deathctr/')) {
             $.mkDir('./addons/deathctr');
@@ -70,8 +70,10 @@
         /*
          * @commandpath counter - Display the current number of deaths in game being played.
          */
+
         if (command.equalsIgnoreCase('counter')) {
             var deathCounter = parseInt($.inidb.get('deaths', game));
+          
             var noDeathExists = isNaN(parseInt(deathCounter)) || parseInt(deathCounter) === 0 ? (deathCounter = 0, true) : (false);
             if (action === undefined) {
                 if (noDeathExists) {
@@ -83,7 +85,7 @@
                 /*
                  * @commandpath counter reset - Reset the death counter for the game being played.
                  */
-                if (action.equalsIgnoreCase('reset')) {
+                if ($.equalsIgnoreCase(action, 'reset')) {
                     if (noDeathExists) {
                         $.say($.whisperPrefix(sender) + $.lang.get('deathcounter.reset-nil', game));
                     } else {
@@ -97,8 +99,10 @@
                 /*
                  * @commandpath counter set [number] - Set the death counter for the game being played.
                  */
+
                 if (action.equalsIgnoreCase('set')) {
                     if (amount_given == false) {
+
                         $.say($.whisperPrefix(sender) + $.lang.get('deathcounter.set-error'));
                         return;
                     } else {

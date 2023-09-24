@@ -261,6 +261,9 @@ public final class PhantomBot implements Listener {
      */
     @SuppressWarnings({"removal"})
     public PhantomBot() {
+        java.util.logging.Logger l = java.util.logging.Logger.getLogger("io.netty.resolver.dns.DefaultDnsServerAddressStreamProvider");
+        l.setLevel(java.util.logging.Level.OFF);
+
         /**
          * @botproperty reactordebug - If `true`, internal debugging for Reactor HTTP and WS processing is sent to the console. Default `false`
          * @botpropertycatsort reactordebug 300 900 Debug
@@ -331,8 +334,8 @@ public final class PhantomBot implements Listener {
 
         /* Load the datastore */
         Datastore2.init();
-        String oldds = CaselessProperties.instance().getProperty("datastore", "h2store");
-        if (!oldds.toLowerCase().startsWith("sqlite")) {
+        String oldds = CaselessProperties.instance().getProperty("datastore", "h2store").toLowerCase();
+        if (!oldds.startsWith("sqlite")) {
             if (DataStore.instance().GetFileList().length == 0 && SqliteStore.hasDatabase(CaselessProperties.instance().getProperty("datastoreconfig", ""))
                 && SqliteStore.isAvailable(CaselessProperties.instance().getProperty("datastoreconfig", ""))
                 && SqliteStore.instance().GetFileList().length > 0) {
@@ -1148,8 +1151,8 @@ public final class PhantomBot implements Listener {
     public static void main(String[] args) throws IOException {
         System.setProperty("io.netty.noUnsafe", "true");
 
-        if (Float.parseFloat(System.getProperty("java.specification.version")) < (float) 11) {
-            System.out.println("Detected Java " + System.getProperty("java.version") + ". " + "PhantomBot requires Java 11 or later.");
+        if (Float.parseFloat(System.getProperty("java.specification.version")) < (float) 17) {
+            System.out.println("Detected Java " + System.getProperty("java.version") + ". " + "PhantomBot requires Java 17 or later.");
             PhantomBot.exitError();
         }
 
@@ -1283,6 +1286,8 @@ public final class PhantomBot implements Listener {
             os = "-bot_only";
         } else if (System.getProperty("os.arch").equalsIgnoreCase("arm64") || System.getProperty("os.arch").equalsIgnoreCase("aarch64")) {
             os = "-arm64";
+        } else if (System.getProperty("os.arch").toLowerCase().startsWith("arm")) {
+            os = "-arm32";
         } else if (osname.contains("mac")) {
             os = "-mac";
         } else if (osname.contains("nix") || osname.contains("nux") || osname.contains("aix")) {

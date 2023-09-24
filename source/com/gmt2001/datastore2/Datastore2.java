@@ -22,9 +22,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLClassLoader;
 import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Collections;
@@ -42,6 +40,7 @@ import org.jooq.ExecutorProvider;
 import org.jooq.RecordListener;
 import org.jooq.SQLDialect;
 import org.jooq.Table;
+import org.jooq.conf.SettingsTools;
 import org.jooq.exception.DataAccessException;
 import org.jooq.impl.DSL;
 import org.jooq.impl.DefaultConfiguration;
@@ -134,7 +133,7 @@ public abstract class Datastore2 {
      * <li>May optionally start a timer in the constructor to periodically call {@link #doMaintenance()}</li>
      * <li>Must be in a JAR file located in the {@code ./datastores} folder</li>
      * <li>The name of the JAR file must match the output of {@link Class#getSimpleName()} (Classname) of the type, including case</li>
-     * <li>The {@code .jar} file exension on the JAR file must be lower-case</li>
+     * <li>The {@code .jar} file extension on the JAR file must be lower-case</li>
      * <li>The value of the {@code datastore} property in botlogin.txt must match the output of {@link Class#getName()} (Fully qualified classname) of the type, including case</li>
      * </ul>
      */
@@ -148,9 +147,23 @@ public abstract class Datastore2 {
          * @botpropertycatsort datastore 10 30 Datastore
          * @botpropertyrestart datastore
          */
+        Datastore2 instance = init(CaselessProperties.instance().getProperty("datastore", "H2Store2"));
+
+        if (instance != null) {
+            INSTANCE = instance;
+        }
+    }
+
+    /**
+     * Initializes a new instance of Datastore2
+     *
+     * @param dataStoreType the implementation of Datastore2 to initialize
+     * @return an instance of Datastore2; {@code null} on failure
+     * @see #init()
+     */
+    static synchronized Datastore2 init(String dataStoreType) {
         String packageName;
         String className;
-        String dataStoreType = CaselessProperties.instance().getProperty("datastore", "H2Store2");
 
         if (dataStoreType.isBlank()) {
             dataStoreType = "H2Store2";
@@ -174,14 +187,14 @@ public abstract class Datastore2 {
         if (packageName.startsWith("com.gmt2001.datastore2.")) {
             com.gmt2001.Console.debug.println("Checking for a built-in driver");
             // Resolve builtin classes case-insensitively
-            final String fdataStoreType = className;
-            final String fdataStoreType2 = DataStore.resolveClassname(className);
+            final String fDataStoreType = className;
+            final String fDataStoreType2 = DataStore.resolveClassname(className);
             Optional<String> tempdataStoreType = Reflect.instance()
                 .loadPackageRecursive(Datastore2.class.getName()
                     .substring(0, Datastore2.class.getName().lastIndexOf('.')), REFLECT_EXCLUDE)
                 .getSubTypesOf(Datastore2.class).stream().filter((c) -> {
-                    return c.getSimpleName().equalsIgnoreCase(fdataStoreType)
-                        || c.getSimpleName().equalsIgnoreCase(fdataStoreType2);
+                    return c.getSimpleName().equalsIgnoreCase(fDataStoreType)
+                        || c.getSimpleName().equalsIgnoreCase(fDataStoreType2);
                 }).map(c -> c.getName()).findFirst();
 
             if (tempdataStoreType.isPresent()) {
@@ -210,13 +223,19 @@ public abstract class Datastore2 {
             // Attempt to load into memory
             t = Class.forName(dataStoreType, true, loader);
             // Attempt to instantiate
-            INSTANCE = (Datastore2)t.getDeclaredConstructor().newInstance();
+            Datastore2 instance = (Datastore2)t.getDeclaredConstructor().newInstance();
             com.gmt2001.Console.debug.println("Datastore2 driver initialized");
+            return instance;
         } catch (NoSuchMethodException | SecurityException | InstantiationException | IllegalAccessException | IllegalArgumentException
                 | InvocationTargetException | ClassNotFoundException ex) {
                 com.gmt2001.Console.err.println("Unable to load the Datastore2 driver " + dataStoreType);
                 com.gmt2001.Console.err.printStackTrace(ex, Collections.singletonMap("dataStoreType", dataStoreType));
+                if (ex.getCause() != null) {
+                    com.gmt2001.Console.err.println("Caused by: " + ex.getCause().getClass().getName() + ": " + ex.getCause().getMessage());
+                }
         }
+
+        return null;
     }
 
     /**
@@ -276,7 +295,7 @@ public abstract class Datastore2 {
                 try {
                     return getConnection();
                 } catch (SQLException ex) {
-                    throw new DataAccessException("failed to aquire connection", ex);
+                    throw new DataAccessException("failed to acquire connection", ex);
                 }
             }
 
@@ -299,7 +318,7 @@ public abstract class Datastore2 {
             if (AttachableRecord.class.isAssignableFrom(ctx.record().getClass())) {
                 ((AttachableRecord) ctx.record()).doAttachments();
             }
-        }));
+        })).set(SettingsTools.defaultSettings().withReturnIdentityOnUpdatableRecord(false));
         this.dslContext = DSL.using(configuration);
     }
 
@@ -315,7 +334,7 @@ public abstract class Datastore2 {
      * <p>
      * Consider using try-with-resources instead to safely auto-close the connection
      * <p>
-     * Transactions are <b>not</b> comitted automatically when closing a {@link Connection} that has auto-commit disabled
+     * Transactions are <b>not</b> committed automatically when closing a {@link Connection} that has auto-commit disabled
      *
      * @return a new {@link Connection} object
      * @throws SQLException if a database access error occurs
@@ -341,49 +360,6 @@ public abstract class Datastore2 {
         }
 
         return false;
-    }
-
-    /**
-     * Creates a {@link PreparedStatement} object for sending parameterized SQL statements to the database
-     * <p>
-     * This directly connects to the underlying database. It should only be used by custom scripts where the selected database is known
-     * or by the implementing {@link Datastore2} sub-classes
-     * <p>
-     * The {@link PreparedStatement} must be closed by calling {@link PreparedStatement#close()} to release it back to the connection
-     * pool when the operation is complete, otherwise exhaustion of the connection pool may occur, preventing other modules from accessing the database
-     * <p>
-     * Consider using try-with-resources instead to safely auto-close the connection
-     * <p>
-     * Transactions are <b>not</b> comitted automatically when closing a {@link PreparedStatement} that has auto-commit disabled
-     *
-     * @see <a href="https://docs.oracle.com/javase/tutorial/jdbc/basics/prepared.html" target="_blank">Using Prepared Statements</a>
-     *
-     * @param sql an SQL statement that may contain one or more {@code ?} IN parameter placeholders
-     * @return a new default {@link PreparedStatement} object containing the pre-compiled SQL statement
-     * @throws SQLException if a database access error occurs or this method is called on a closed connection
-     */
-    public PreparedStatement prepareStatement(String sql) throws SQLException {
-        return this.getConnection().prepareStatement(sql);
-    }
-
-    /**
-     * Creates a {@link Statement} object for sending SQL statements to the database
-     * <p>
-     * This directly connects to the underlying database. It should only be used by custom scripts where the selected database is known
-     * or by the implementing {@link Datastore2} sub-classes
-     * <p>
-     * The {@link Statement} must be closed by calling {@link Statement#close()} to release it back to the connection
-     * pool when the operation is complete, otherwise exhaustion of the connection pool may occur, preventing other modules from accessing the database
-     * <p>
-     * Consider using try-with-resources instead to safely auto-close the connection
-     * <p>
-     * Transactions are <b>not</b> comitted automatically when closing a {@link Statement} that has auto-commit disabled
-     *
-     * @return a new default {@link Statement} object
-     * @throws SQLException if a database access error occurs or this method is called on a closed connection
-     */
-    public Statement createStatement() throws SQLException {
-        return this.getConnection().createStatement();
     }
 
     /**
@@ -477,7 +453,7 @@ public abstract class Datastore2 {
     }
 
     /**
-     * Returns the {@link DataType} representing the {@code LONGTEXT} equivilent SQL data type for the driver
+     * Returns the {@link DataType} representing the {@code LONGTEXT} equivalent SQL data type for the driver
      *
      * @return the DataType
      */
@@ -534,7 +510,7 @@ public abstract class Datastore2 {
     }
 
     /**
-     * Disposes of resources as neccessary
+     * Disposes of resources as necessary
      * <p>
      * Once this is called, the connection pool is invalid and the program must be restarted to futher access the database
      */
