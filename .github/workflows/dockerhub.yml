@@ -1,7 +1,9 @@
 name: Build/Upload Release
 on:
   release:
-    types: [ published ]
+    types:
+      - prereleased
+      - published
 jobs:
   docker:
     name: Docker build on ubuntu-latest with JDK 17
