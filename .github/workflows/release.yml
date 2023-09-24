@@ -1,6 +1,7 @@
 name: Build/Upload Release
 on:
-  release:
+  workflow_dispatch:
+#  release:
 #    types: [published]
 jobs:
   buildtest:
