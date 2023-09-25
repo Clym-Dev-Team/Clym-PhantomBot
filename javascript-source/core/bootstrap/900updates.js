@@ -736,45 +736,45 @@
         }
     });
 
-    addUpdate('3.10.0.3', 'installedv3.10.0.3', function() {
-        let tables = ['points', 'deaths', 'time', 'adventurePayouts', 'wordCounter', 'bettingVotes', 'pollVotes', 'commandCount', 'discordCommandCount'];
-        let val;
-        let toint = function(inval) {
-            try {
-                return parseInt(inval);
-            } catch(e) {
-                return NaN;
-            }
-        }
-
-        for (let x in tables) {
-            let keys = $.inidb.GetKeyList(tables[x], '');
-
-            for (let i = 0; i < keys.length; i++) {
-                val = toint($.getIniDbString(tables[x], keys[i]));
-                if (!isNaN(val)) {
-                    $.inidb.SetInteger(tables[x], '', keys[i], val);
-                }
-            }
-        }
-
-        val = toint($.getIniDbString('panelstats', 'gameCount'));
-        if (!isNaN(val)) {
-            $.inidb.SetInteger('panelstats', '', 'gameCount', val);
-        }
-        if ($.inidb.exists('raffleresults', 'raffleEntries')) {
-            val = toint($.getIniDbString('raffleresults', 'raffleEntries'));
-            if (!isNaN(val)) {
-                $.inidb.SetInteger('raffleresults', '', 'raffleEntries', val);
-            }
-        }
-        if ($.inidb.exists('traffleresults', 'ticketRaffleEntries')) {
-            val = toint($.getIniDbString('traffleresults', 'ticketRaffleEntries'));
-            if (!isNaN(val)) {
-                $.inidb.SetInteger('traffleresults', '', 'ticketRaffleEntries', val);
-            }
-        }
-    });
+//    addUpdate('3.10.0.3', 'installedv3.10.0.3', function() {
+//        let tables = ['points', 'deaths', 'time', 'adventurePayouts', 'wordCounter', 'bettingVotes', 'pollVotes', 'commandCount', 'discordCommandCount'];
+//        let val;
+//        let toint = function(inval) {
+//            try {
+//                return parseInt(inval);
+//            } catch(e) {
+//                return NaN;
+//            }
+//        }
+//
+//        for (let x in tables) {
+//            let keys = $.inidb.GetKeyList(tables[x], '');
+//
+//            for (let i = 0; i < keys.length; i++) {
+//                val = toint($.getIniDbString(tables[x], keys[i]));
+//                if (!isNaN(val)) {
+//                    $.inidb.SetInteger(tables[x], '', keys[i], val);
+//                }
+//            }
+//        }
+//
+//        val = toint($.getIniDbString('panelstats', 'gameCount'));
+//        if (!isNaN(val)) {
+//            $.inidb.SetInteger('panelstats', '', 'gameCount', val);
+//        }
+//        if ($.inidb.exists('raffleresults', 'raffleEntries')) {
+//            val = toint($.getIniDbString('raffleresults', 'raffleEntries'));
+//            if (!isNaN(val)) {
+//                $.inidb.SetInteger('raffleresults', '', 'raffleEntries', val);
+//            }
+//        }
+//        if ($.inidb.exists('traffleresults', 'ticketRaffleEntries')) {
+//            val = toint($.getIniDbString('traffleresults', 'ticketRaffleEntries'));
+//            if (!isNaN(val)) {
+//                $.inidb.SetInteger('traffleresults', '', 'ticketRaffleEntries', val);
+//            }
+//        }
+//    });
 
     // ------ Add updates above this line in execution order ------
     if ($.inidb.FileExists('updates') && $.getIniDbBoolean('updates', updates[0].variable)) {
