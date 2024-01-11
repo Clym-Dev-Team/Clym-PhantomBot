@@ -1,0 +1,43 @@
+name: Build/Upload Release
+on:
+  release:
+    types:
+      - prereleased
+      - published
+jobs:
+  docker:
+    name: Docker build on ubuntu-latest with JDK 17
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+        with:
+          version: latest
+      - name: Login to DockerHub Registry
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKER_USER }}
+          password: ${{ secrets.DOCKER_CLITOKEN }}
+          logout: true
+      #      - name: Prep Ant script
+      #        env:
+      #          BRANCH: ${{ needs.workflowvars.outputs.branch }}
+      #          REVISION: ${{ needs.workflowvars.outputs.revision }}
+      #        run: |
+      #          sed -i -r 's/revision="[A-Za-z0-9._-]+"/revision="'$REVISION'"/;s/branch="[A-Za-z0-9._-]+"/branch="'$BRANCH'"/;s/status="[A-Za-z0-9._-]+"/status="release"/' ivy.xml
+      #          echo $?
+      - name: Build and Push DockerHub
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          file: ./Dockerfile
+          platforms: linux/amd64
+          push: true
+          build-args: |
+            PROJECT_VERSION=${{  github.ref_name }}
+            ANT_ARGS=-Dbuildtype=stable -Dversion=${{  github.ref_name }}
+          tags: |
+            ${{ secrets.DOCKER_USER }}/${{ secrets.DOCKER_REPO_STABLE }}:${{  github.ref_name }}
+            ${{ secrets.DOCKER_USER }}/${{ secrets.DOCKER_REPO_STABLE }}:latest
