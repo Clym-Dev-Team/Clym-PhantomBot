@@ -735,71 +735,75 @@
         }
     });
 
-    addUpdate('3.10.0.3', 'installedv3.10.0.3', function () {
-        let tables = ['points', 'deaths', 'time', 'adventurePayouts', 'wordCounter', 'bettingVotes', 'pollVotes', 'commandCount', 'discordCommandCount'];
-        let val;
-        let toint = function (inval) {
-            try {
-                return parseInt(inval);
-            } catch (e) {
-                return NaN;
-            }
-        }
-
-        $.consoleLn('Fixing integers in database...');
-        for (let x in tables) {
-            $.consoleLn('> Table ' + tables[x]);
-            let keys = $.inidb.GetKeyList(tables[x], '');
-
-            for (let i = 0; i < keys.length; i++) {
-                val = toint($.getIniDbString(tables[x], keys[i]));
-                if (!isNaN(val)) {
-                    try {
-                        $.inidb.SetLong(tables[x], '', keys[i], val);
-                    } catch (e) {
-                        $.consoleLn('An exception occurred converting ' + val + ' to an integer. The entry has been skipped');
-                        $.handleException('900updates#3.10.0.3', e);
-                    }
-                }
-
-                if (i % 100 === 0) {
-                    $.consoleLn('Still fixing table ' + tables[x] + ' ' + i + '/' + keys.length + '...');
-                }
-            }
-        }
-
-        val = toint($.getIniDbString('panelstats', 'gameCount'));
-        if (!isNaN(val)) {
-            try {
-                $.inidb.SetLong('panelstats', '', 'gameCount', val);
-            } catch (e) {
-                $.consoleLn('An exception occurred converting ' + val + ' to an integer. The entry has been skipped');
-                $.handleException('900updates#3.10.0.3', e);
-            }
-        }
-        if ($.inidb.exists('raffleresults', 'raffleEntries')) {
-            val = toint($.getIniDbString('raffleresults', 'raffleEntries'));
-            if (!isNaN(val)) {
-                try {
-                    $.inidb.SetLong('raffleresults', '', 'raffleEntries', val);
-                } catch (e) {
-                    $.consoleLn('An exception occurred converting ' + val + ' to an integer. The entry has been skipped');
-                    $.handleException('900updates#3.10.0.3', e);
-                }
-            }
-        }
-        if ($.inidb.exists('traffleresults', 'ticketRaffleEntries')) {
-            val = toint($.getIniDbString('traffleresults', 'ticketRaffleEntries'));
-            if (!isNaN(val)) {
-                try {
-                    $.inidb.SetLong('traffleresults', '', 'ticketRaffleEntries', val);
-                } catch (e) {
-                    $.consoleLn('An exception occurred converting ' + val + ' to an integer. The entry has been skipped');
-                    $.handleException('900updates#3.10.0.3', e);
-                }
-            }
-        }
-    });
+    /*
+        Disabled by Clym Dev Team because of a severe case of stupid
+        THis update script takes over half an hour to finish and does patch nothing in our dataset
+    */
+    // addUpdate('3.10.0.3', 'installedv3.10.0.3', function () {
+    //     let tables = ['points', 'deaths', 'time', 'adventurePayouts', 'wordCounter', 'bettingVotes', 'pollVotes', 'commandCount', 'discordCommandCount'];
+    //     let val;
+    //     let toint = function (inval) {
+    //         try {
+    //             return parseInt(inval);
+    //         } catch (e) {
+    //             return NaN;
+    //         }
+    //     }
+    //
+    //     $.consoleLn('Fixing integers in database...');
+    //     for (let x in tables) {
+    //         $.consoleLn('> Table ' + tables[x]);
+    //         let keys = $.inidb.GetKeyList(tables[x], '');
+    //
+    //         for (let i = 0; i < keys.length; i++) {
+    //             val = toint($.getIniDbString(tables[x], keys[i]));
+    //             if (!isNaN(val)) {
+    //                 try {
+    //                     $.inidb.SetLong(tables[x], '', keys[i], val);
+    //                 } catch (e) {
+    //                     $.consoleLn('An exception occurred converting ' + val + ' to an integer. The entry has been skipped');
+    //                     $.handleException('900updates#3.10.0.3', e);
+    //                 }
+    //             }
+    //
+    //             if (i % 100 === 0) {
+    //                 $.consoleLn('Still fixing table ' + tables[x] + ' ' + i + '/' + keys.length + '...');
+    //             }
+    //         }
+    //     }
+    //
+    //     val = toint($.getIniDbString('panelstats', 'gameCount'));
+    //     if (!isNaN(val)) {
+    //         try {
+    //             $.inidb.SetLong('panelstats', '', 'gameCount', val);
+    //         } catch (e) {
+    //             $.consoleLn('An exception occurred converting ' + val + ' to an integer. The entry has been skipped');
+    //             $.handleException('900updates#3.10.0.3', e);
+    //         }
+    //     }
+    //     if ($.inidb.exists('raffleresults', 'raffleEntries')) {
+    //         val = toint($.getIniDbString('raffleresults', 'raffleEntries'));
+    //         if (!isNaN(val)) {
+    //             try {
+    //                 $.inidb.SetLong('raffleresults', '', 'raffleEntries', val);
+    //             } catch (e) {
+    //                 $.consoleLn('An exception occurred converting ' + val + ' to an integer. The entry has been skipped');
+    //                 $.handleException('900updates#3.10.0.3', e);
+    //             }
+    //         }
+    //     }
+    //     if ($.inidb.exists('traffleresults', 'ticketRaffleEntries')) {
+    //         val = toint($.getIniDbString('traffleresults', 'ticketRaffleEntries'));
+    //         if (!isNaN(val)) {
+    //             try {
+    //                 $.inidb.SetLong('traffleresults', '', 'ticketRaffleEntries', val);
+    //             } catch (e) {
+    //                 $.consoleLn('An exception occurred converting ' + val + ' to an integer. The entry has been skipped');
+    //                 $.handleException('900updates#3.10.0.3', e);
+    //             }
+    //         }
+    //     }
+    // });
 
     // ------ Add updates above this line in execution order ------
     if ($.inidb.FileExists('updates') && $.getIniDbBoolean('updates', updates[0].variable)) {
