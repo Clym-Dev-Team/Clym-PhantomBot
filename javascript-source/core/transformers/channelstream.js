@@ -216,8 +216,7 @@
         let user, match;
         if ((match = args.args.match(/^(?:(.*))?$/))) {
             user = (match[1] || '').replace(/^@/, '');
-            if (user.length === 0) {
-                user = $.jsString(args.event.getSender());
+            if (user.length === 0) {user = $.jsString(args.event.getSender());
             }
             return {
                 result: $.getUserTime(user) / 3600,
@@ -226,7 +225,7 @@
         }
     }
 
-    // [Start] Clym Dev Team Additions
+    // [Start] Clym-Dev-Team Additions
     function counter(args) {
         return {
             result: $.getIniDbNumber('deaths', args.args),
@@ -287,7 +286,7 @@
         }
 
     }
-    // [End] Clym Dev Team Additions
+    // [End] Clym-Dev-Team Additions
 
 
     /*

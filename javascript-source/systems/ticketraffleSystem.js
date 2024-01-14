@@ -526,10 +526,12 @@
                     return;
                 }
 
-                if (hasDrawn) {
-                    $.say($.whisperPrefix(sender) + $.lang.get('ticketrafflesystem.err.already.drawn'));
-                    return;
-                }
+                // [START] CLYM-DEV-TEAM Modifications: Make multiple draws possible
+                // if (hasDrawn) {
+                //     $.say($.whisperPrefix(sender) + $.lang.get('ticketrafflesystem.err.already.drawn'));
+                //     return;
+                // }
+                // [END] CLYM-DEV-TEAM Modifications:
 
                 if (args[1] !== undefined) {
                     amount = parseInt(args[1]);

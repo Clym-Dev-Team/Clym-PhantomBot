@@ -117,9 +117,10 @@ $(run = function () {
             $('#ticket-raffle-table').ready(function () {
                 helpers.temp.loadWinners();
             });
-            $('#ticket-draw-raffle').ready(function () {
-                $('#ticket-draw-raffle').prop('disabled', true);
-            });
+            //CLYM DEV TEAM: Make multiple draws possible after page reload
+            // $('#ticket-draw-raffle').ready(function () {
+            //     $('#ticket-draw-raffle').prop('disabled', true);
+            // });
         }
     });
 });
@@ -201,7 +202,8 @@ $(function () {
                         if ((e['hasDrawn'] === 'true' || e['hasDrawn'] === '1') && (e['isActive'] === '0' || e['isActive'] === 'false')) {
                             helpers.clearTimers();
 
-                            $('#ticket-draw-raffle').prop('disabled', true);
+                            //CLYM DEV TEAM: Remove Panel Button disable
+                            // $('#ticket-draw-raffle').prop('disabled', true);
                             $('#ticket-open-or-close-raffle').html($('<i/>', {
                                 'class': 'fa fa-unlock-alt'
                             })).append('&nbsp; Open').removeClass('btn-warning').addClass('btn-success');

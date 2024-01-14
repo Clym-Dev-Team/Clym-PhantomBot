@@ -43,7 +43,7 @@
 
     /*
      * @event command
-     * This function was modified by the Clym Dev Team to be a general purpose Counter instead of a deathCounter
+     * This function was modified by the Clym-Dev-Team to be a general purpose Counter instead of a deathCounter
      * For that we repurposed the game name as an counter name and gave the command caller a way to specify the counter
      * This Counter can still be used a Death Counter by giving the game name as the parameter for the name of the counter
      */

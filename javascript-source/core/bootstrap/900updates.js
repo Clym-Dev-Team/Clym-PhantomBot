@@ -735,10 +735,8 @@
         }
     });
 
-    /*
-        Disabled by Clym Dev Team because of a severe case of stupid
-        THis update script takes over half an hour to finish and does patch nothing in our dataset
-    */
+    // [Start] Clym-Dev-Team Modifications because of a severe case of stupid
+    // This update script takes over half an hour to finish and does patch nothing in our dataset
     // addUpdate('3.10.0.3', 'installedv3.10.0.3', function () {
     //     let tables = ['points', 'deaths', 'time', 'adventurePayouts', 'wordCounter', 'bettingVotes', 'pollVotes', 'commandCount', 'discordCommandCount'];
     //     let val;
@@ -804,6 +802,7 @@
     //         }
     //     }
     // });
+    // [END] Clym-Dev-Team Modifications
 
     // ------ Add updates above this line in execution order ------
     if ($.inidb.FileExists('updates') && $.getIniDbBoolean('updates', updates[0].variable)) {
