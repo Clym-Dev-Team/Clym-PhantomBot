@@ -1,0 +1,11 @@
+{
+  "cliphandler.toggle.off": "Clip Benachrichtigungen wurden deaktiviert.",
+  "cliphandler.toggle.on": "Clip Benachrichtigungen wurden aktiviert.",
+  "cliphandler.message.usage": "Verwendung: !clipsmessage [Benachrichtigung] - Tags: (name), (url)",
+  "cliphandler.message.set": "Benachrichtigungen für Clips geändert zu: $1",
+  "cliphandler.channel.usage": "Verwendung: !clipschannel [Kanal]. Aktuell: $1",
+  "cliphandler.channel.set": "Benachrichtigungen für Clips werden in folgendem Channel gepostet: $1.",
+  "cliphandler.noclip": "Kein Clip vorhanden.",
+  "cliphandler.lastclip": "Neuester Clip: $1",
+  "cliphandler.topclip": "Der meistgesehene Clip von heute: $1"
+}

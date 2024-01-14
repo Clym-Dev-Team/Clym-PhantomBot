@@ -1,0 +1,12 @@
+{
+  "greetingsystem.set.autogreet.enabled": "Auto-Begrüßung aktiviert. $1 wird nun jeden begrüßen, wenn dieser das eingestellt hat.",
+  "greetingsystem.set.autogreet.disabled": "Auto-Begrüßung deaktiviert.",
+  "greetingsystem.set.autogreet.noname": "Die Standard-Begrüßungsnachricht benötigt den Tag \"(name)\" um zu wissen wo der Benutzername hingehört.",
+  "greetingsystem.set.default.success": "Die Standard-Begrüßung wurde zu \"$1\" geändert.",
+  "greetingsystem.set.personal.success": "Persönliche Begrüßung geändert zu \"$1\".",
+  "greetingsystem.remove.personal.success": "Persönliche Begrüßungsnachricht erfolgreich entfernt.",
+  "greetingsystem.generalusage.admin": "Verwendung: !greeting [toggle | enable [default | Nachricht] | disable | setdefault ]. Tags für den Nachrichtentext: (name)",
+  "greetingsystem.generalusage.other": "Verwende !greeting [ enable [default | Nachricht] | disable ]. Tags für den Nachrichtentext: (name)",
+  "greetingsystem.cooldown.usage": "Verwendung: !greeting cooldown [Stunden]",
+  "greetingsystem.cooldown.success": "Begrüßungs Abklingzeit auf $1 Stunden gesetzt."
+}

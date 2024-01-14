@@ -1,0 +1,11 @@
+{
+    "roll.rolled": "$1 würfelt eine [$2] und [$3]. ",
+    "roll.doubleone": "Einerpasch für $1! ",
+    "roll.doubletwo": "Zweierpasch für $1! ",
+    "roll.doublethree": "Dreierpasch für $1! ",
+    "roll.doublefour": "Viererpasch für $1! ",
+    "roll.doublefive": "Fünferpasch für $1! ",
+    "roll.doublesix": "SECHSERPASCH!!! YEAH!!! $1! ",
+    "roll.rewards.usage": "Verwendung: !roll rewards [double 1's] [2's] [3's] [4's] [5's] [6's]. Aktuell: $1",
+    "roll.rewards.success": "Gewinne für das Würfeln aktualisiert."
+}

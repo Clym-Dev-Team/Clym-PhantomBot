@@ -1,0 +1,20 @@
+{
+  "streamelements.donation.new": "Vielen Dank (name) für deine Spende von (amount)!",
+  "streamelements.donation.newreward": "Vielen Dank (name) für deine Spende von (amount) (currency)! Hier sind (points) (pointname) als Dankeschön!",
+  "streamelements.donations.usage": "Verwendung: !streamelements [announce | rewardmultiplier n.n | message | lastmessage]",
+  "streamelements.donations.announce.disable": "Spenden werden nicht mehr länger ausgegeben.",
+  "streamelements.donations.announce.enable": "Spenden werden ab jetzt im Chat ausgegeben.",
+  "streamelements.donations.reward.usage": "Verwendung: !streamelements rewardmultiplier n.n Setze es auf 0 um es zu deaktivieren.",
+  "streamelements.donations.reward.success": "Die Belohnung für Spenden wurde auf $1 $2 je runden Geldbetrag der gespendet wurde.",
+  "streamelements.donations.message.usage": "Verwendung: !streamelements message [Nachricht] Tags: (name) (amount) (currency) (currencysymbol) (message) (formattedamount)",
+  "streamelements.donations.rewardmessage.usage": "Verwendung: !streamelements rewardmessage [Nachricht] Tags: (name) (amount) (currency) (reward) (message)",
+  "streamelements.donations.message.no-name": "Ein (name) Tag wurde nicht übergeben, gib minestens den (name) Tag in deiner Nachricht an. Tags: (name) (amount) (currency) (message)",
+  "streamelements.donations.rewardmessage.no-name": "Ein (name) Tag wurde nicht übergeben, gib minestens den (name) Tag in deiner Nachricht an. Tags: (name) (amount) (currency) (reward) (message)",
+  "streamelements.donations.message.success": "Die Nachricht für Spenden wurde aktualisiert, wenn Belohnungen deaktiviert sind.",
+  "streamelements.donations.rewardmessage.success": "Die Nachricht für Spenden wurde aktualisiert, wenn Belohnungen aktiviert sind.",
+  "streamelements.donations.lastmessage.success": "Nachricht für den !lasttip Befehl aktualisiert.",
+  "streamelements.enabled.donators": "Die Spendergruppe wurde aktiviert.",
+  "streamelements.disabled.donators": "Die Spendergruppe wurde deaktiviert.",
+  "streamelements.donators.min": "Das Minimum für den Aufstieg zum Rang Spender wurde auf 1$ gesetzt.",
+  "streamelements.donators.min.usage": "Verwendung: !streamelements minmumbeforepromotion [Höhe]"
+}

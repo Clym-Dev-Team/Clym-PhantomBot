@@ -1,0 +1,5 @@
+{
+    "lastseen.404": "Ich habe $1 hier noch nie gesehen.",
+    "lastseen.response": "$1 war zum letzten mal hier am $2 um $3",
+    "lastseen.usage": "Verwendung: !lastseen [Benutzername]"
+}

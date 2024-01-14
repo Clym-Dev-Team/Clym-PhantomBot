@@ -1,0 +1,9 @@
+{
+  "discord.tipeeestreamhandler.usage": "Verwendung: !tipeeestreamhandler [toggle / message / channel]",
+  "discord.tipeeestreamhandler.toggle": "TipeeeStream Spendenbenachrichtigungen wurden $1.",
+  "discord.tipeeestreamhandler.message.usage": "Verwendung: !tipeeestreamhandler message [Nachricht] - Tags: (name) (amount) (currency) (formattedamount) (message)",
+  "discord.tipeeestreamhandler.message.set": "TipeeeStream-Spendennachricht gesetzt auf: $1",
+  "discord.tipeeestreamhandler.channel.usage": "Verwendung: !tipeeestreamhandler channel [Kanalname]",
+  "discord.tipeeestreamhandler.channel.set": "TipeeeStream-Spendenankündigungen werden nun im Kanal $1 gemacht.",
+  "discord.tipeeestreamhandler.embed.title": "Neue Spende!"
+}

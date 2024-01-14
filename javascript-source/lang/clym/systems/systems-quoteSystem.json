@@ -1,0 +1,23 @@
+{
+  "quotesystem.add.usage1": "Verwendung: !addquote [Zitat]",
+  "quotesystem.add.usage2": "Verwendung: !addquote [Benutzer] [Zitat]",
+  "quotesystem.add.offline": "Nur Moderatoren können Zitate hinzufügen, während der Stream offline ist.",
+  "quotesystem.add.success": "Neues Zitat von $1 mit der ID #$2 hinzugefügt.",
+  "quotesystem.del.usage": "Verwedung: !delquote [Zitat ID]",
+  "quotesystem.del.success": "Zitat $1 wurde gelöscht. Es sind noch $2 Zitate vorhanden.",
+  "quotesystem.del.404": "Zitat $1 konnte nicht gelöscht werden... Bist du sicher, dass es existiert?",
+  "quotesystem.get.success": "[(id)] \"(quote)\", von (user) ((date))",
+  "quotesystem.get.404": "Kann Zitat  $1 nicht finden... Bist du sicher, dass es existiert?",
+  "quotesystem.edit.usage": "Verwendung: !editquote [Zitat ID] [Nutzer|Kategorie|Zitat] Text...]",
+  "quotesystem.edit.user.success": "Benutzername im Zitat von $1, zu $2 geändert.",
+  "quotesystem.edit.game.success": "Kategorie in Zitat von $1, zu $2 geändert.",
+  "quotesystem.edit.quote.success": "Zitat in Zitat von $1, zu $2 geändert.",
+  "quotesystem.edit.404": "Kann Zitat $1 nicht finden... Bist du sicher, dass es existiert?",
+  "quotesystem.quotemessage.usage": "Verwendung: !quotemessage [Nachricht] (Tags: (id) (quote) (user) (game) (date))",
+  "quotesystem.quotemessage.success": "Nachricht zur Verwendung mit Zitaten geändert.",
+  "quotesystem.searchquote.usage": "Verwendung: !searchquote [Text] (Muss eine Mindestlänge von 5 Zeichen haben.)",
+  "quotesystem.searchquote.404": "Es konnten keine Übereinstimmungen gefunden werden.",
+  "quotesystem.searchquote.found": "Zitat IDs mit Übereinstimmungen: $1",
+  "quotesystem.twitchnames-disabled": "Benutzernamen für Zitate werden nicht validiert",
+  "quotesystem.twitchnames-enabled": "Benutzernamen für Zitate werden gegen Benutzer, die im Chat waren, validiert."
+}

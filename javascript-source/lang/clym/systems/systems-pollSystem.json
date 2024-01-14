@@ -1,0 +1,20 @@
+{
+  "pollsystem.vote.nopoll": "Derzeit ist keine Umfrage aktiv.",
+  "pollsystem.vote.already": "Du hast schon abgestimmt!",
+  "pollsystem.vote.invalid": "\"$1\" ist keine gültige Option!",
+  "pollsystem.vote.success": "Du hast mit \"$1\" auf \"$2\" gestimmt.",
+  "pollsystem.poll.started": "$1 hat für $2 Sekunden eine Umfrage gestartet (Minimal abgegebene Stimmen: $3): $4! Verwende \"!vote [Option]\" zum abstimmen. Optionen: $5",
+  "pollsystem.poll.started.nottime": "$1 hat eine Abstimmung gestartet (Minimale Stimmen: $2): $3! Benutze \"!vote [Option]\" zum abstimmen. Optionen: $4",
+  "pollsystem.poll.running": "Es läuft gerade für \"$1\" eine Umfrage. Verwende \"!vote [Option]\" zum abstimmen. Die Optionen sind \"$2\".",
+  "pollsystem.poll.usage": "Verwendung: !poll [open | results | close]",
+  "pollsystem.results.lastpoll": "[Letzte Umfrage] - [Frage: \"$1\"] - [Stimmen gesamt: $2] - [Ergebnis: \"$3\"] - [Optionen: \"$4\"] [Stimmen: $5]",
+  "pollsystem.results.running": "Es läuft bereits eine Umfrage!",
+  "pollsystem.results.404": "Es gibt keine letzte Umfrage, aus der Ergebnisse abgerufen werden können!",
+  "pollsystem.open.usage": "Verwendung: !poll open \"Frage\" \"Option1, Option2, ...\" [Sekunden] [Min. Stimmen]. Wenn die Sekunden 0 sind, werden automatisch 60 eingesetzt.",
+  "pollsystem.open.moreoptions": "Für eine Umfrage ist mehr als 1 Option notwendig!",
+  "pollsystem.runpoll.novotes": "Die Umfrage für \"$1\" ist beendet! Es wurden nicht genügend Stimmen abgegeben!",
+  "pollsystem.runpoll.winner": "Die Umfrage für \"$1\" ist beendet! Gewinner:in ist \"$2\"!",
+  "pollsystem.runpoll.tie": "Die Umfrage für \"$1\" endete in einem Unentschieden! Prüfe !poll results.",
+  "pollsystem.runpoll.started": "Umfrage gestartet! Verwende \"!poll close\" um die Umfrage manuell zu beenden.",
+  "pollsystem.close.nopoll": "Derzeit ist keine Umfrage aktiv."
+}

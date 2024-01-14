@@ -1,0 +1,13 @@
+{
+  "discord.misc.module.usage": "Verwendung: !module [enable / disable / list]",
+  "discord.misc.module.enabled": "Modul $1 wurde aktiviert.",
+  "discord.misc.module.disabled": "Modul $1 wurde deaktiviert.",
+  "discord.misc.module.list": "Discord Modul Liste: \r\n $1",
+  "discord.misc.module.404": "Das Modul existiert nicht: $1",
+  "discord.misc.game.set.usage": "Verwendung: !setgame [Spielname]",
+  "discord.misc.game.set": "Bot Spiel aktualisiert: $1",
+  "discord.misc.game.stream.set.usage": "Verwendung: !setstream [Twitch URL] [Spielname]",
+  "discord.misc.game.stream.set": "Bot Stream geändert: $1 und Spiel zu: $2",
+  "discord.misc.game.removed": "Bot Spiel wurde entfernt.",
+  "discord.misc.reconnect": "Versuche erneut zu Discord zu verbinden."
+}

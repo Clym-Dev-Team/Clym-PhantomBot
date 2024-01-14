@@ -1,0 +1,8 @@
+{
+  "discord.cooldown.coolcom.usage": "Verwendung: !coolcom [Befehl] [Sekunden] [type (global / user)] - -1 entfernt den Cooldown.",
+  "discord.cooldown.coolcom.set": "Abklingzeit für Befehl !$1 wurde auf $2 Sekunden gesetzt.",
+  "discord.cooldown.coolcom.remove": "Abklingzeit für Befehl !$1 wurde entfernt.",
+  "discord.cooldown.cooldown.usage": "Verwendung: !cooldown [setdefault]",
+  "discord.cooldown.default.set": "Die Standardabklingzeit für Befehle ohne wurde auf $1 Sekunden festgelegt.",
+  "discord.cooldown.default.usage": "Verwendung: !cooldown setdefault [Sekunden] - Erstelle eine Abklingzeit für Befehle ohne eine."
+}

@@ -1,0 +1,11 @@
+{
+  "discord.keywordhandler.usage": "Verwendung: !keyword [add / edit / remove]",
+  "discord.keywordhandler.add.usage": "Verwendung: !keyword add [Schlüsselwort] [Antwort]",
+  "discord.keywordhandler.add.error": "Das Schlüsselwort existiert bereits!",
+  "discord.keywordhandler.add.success": "Schlüsselwort: '$1' wurde hinzugefügt!",
+  "discord.keywordhandler.edit.usage": "Verwendung: !keyword edit [Schlüsselwort] [Antwort]",
+  "discord.keywordhandler.404": "Das Schlüsselwort existiert nicht!",
+  "discord.keywordhandler.edit.success": "Schlüsselwort '$1' wurde bearbeitet.",
+  "discord.keywordhandler.remove.usage": "Verwendung: !keyword remove [Schlüsselwort]",
+  "discord.keywordhandler.remove.success": "Schlüsselwort: '$1' wurde entfernt."
+}

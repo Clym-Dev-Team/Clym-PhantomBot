@@ -1,0 +1,18 @@
+{
+  "raidhandler.usage": "Verwendung: !raid [Nutzername] | !raid [toggle / lookup / setreward / setincomingmessage / setnewincomingmessage / setoutgoingmessage / setoutgoingmessagespam]",
+  "raidhandler.toggle.enabled": "Raid-Benachrichtigungen wurden erfolgreich aktiviert.",
+  "raidhandler.toggle.disabled": "Raid-Benachrichtigungen wurden erfolgreich deaktiviert.",
+  "raidhandler.reward.usage": "Verwendung: !raid setreward [Menge]",
+  "raidhandler.reward.set": "Raidbelohnung geändert zu: $1",
+  "raidhandler.inc.message.usage": "Usage: !raid setincomingmessage [Nachricht] - Variablen: (username), (viewers), (url), (times) and (game)",
+  "raidhandler.inc.message.set": "Nachricht für eingehende Raids geändert.",
+  "raidhandler.new.inc.message.usage": "Verwendung: !raid setnewincomingmessage [Nachricht] - Variablen: (username), (viewers), (url), and (game)",
+  "raidhandler.new.inc.message.set": "Nachricht für neuen eingehenden Raid geändert.",
+  "raidhandler.out.message.usage": "Verwendung: !raid setoutgoingmessage [Nachricht] - Variablen: (username) & (url)",
+  "raidhandler.out.message.set": "Nachricht für ausgehenden Raid geändert.",
+  "raidhandler.spam.amount.usage": "Verwendung: !raid setoutgoingmessagespam [Menge] - Maximum ist 10 mal.",
+  "raidhandler.spam.amount.set": "Anzahl an Spam Nachrichten für ausgehenden Raid geändert.",
+  "raidhandler.lookup.usage": "Verwendung: !raid lookup [Benutzername]",
+  "raidhandler.lookup.user": "1 hat den Kanal schon $2 mal geraidet. Zuletz am $3 mit $4 Zuschauern.",
+  "raidhandler.lookup.user.404": "$1 hat diesen Kanal noch nie geraidet."
+}

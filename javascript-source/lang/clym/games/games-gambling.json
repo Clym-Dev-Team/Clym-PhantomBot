@@ -1,0 +1,16 @@
+{
+  "gambling.need.points": "Du hast nicht genug $1!",
+  "gambling.error.max": "Du darfst nur um maximal $1 spielen!",
+  "gambling.error.min": "u musst ein Minimum von $1 setzen, um spielen zu können!",
+  "gambling.lost": "$1 würfelte $2. $3 verloren. $5",
+  "gambling.won": "$1 würfelte $2. $3 gewonnen! $5",
+  "gambling.usage": "Verwendung: !gamble [Betrag]",
+  "gambling.set.max.usage": "Verwendung: !gamblesetmax [Betrag]",
+  "gambling.set.max": "Maximaler Glücksspieleinsatz auf $1 gesetzt.",
+  "gambling.set.min.usage": "Verwendung: !gamblesetmin [Betrag]",
+  "gambling.set.min": "Minimaler Glücksspieleinsatz auf $1 gesetzt.",
+  "gambling.win.range.usage": "Verwendung: !gamblesetwinningrange [Spanne]",
+  "gambling.win.range": "Glücksspiel Gewinnspanne auf $1-100 und Verlustrate auf 1-$2 gesetzt. ",
+  "gambling.percent.usage": "Verwendung: !gamblesetgainpercent [Höhe]",
+  "gambling.percent": "Glücksspiel Gewinnrate auf $1% gesetzt."
+}

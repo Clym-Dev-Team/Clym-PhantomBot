@@ -1,0 +1,8 @@
+{
+  "corecommands.shoutout.usage": "Verwendung: !$1 (streamer)",
+  "corecommands.shoutout.offline": "Gib $1 doch einen Follow auf $2! - zuletzt aktive Kategorie: $3",
+  "corecommands.shoutout.online": "Gib $1 doch einen Follow auf $2! - aktuelle Kategorie: $3",
+  "corecommands.shoutout.no.game": "Hey! Gib $1 doch einen Follow auf $2!",
+  "corecommands.settimevar.usage": "Verwendung: !settimevar (Variablenname) (Optional: Zeit zum einstellen)",
+  "corecommands.settimevar.success": "Setzen Sie die Zeitvariable $1 auf die Zeit $2"
+}

@@ -1,0 +1,9 @@
+{
+  "discord.streamelementshandler.usage": "Verwendung: !streamelementshandler [toggle / message / channel]",
+  "discord.streamelementshandler.toggle": "StreamElements Spendenankündigungen wurden $1",
+  "discord.streamelementshandler.message.usage": "Verwendung: !streamelementshandler message [Nachricht] - Tags: (name) (amount) (currency) (message)",
+  "discord.streamelementshandler.message.set": "StreamElements Spendennachricht gesetzt zu: $1",
+  "discord.streamelementshandler.channel.usage": "Verwendung: !streamelementshandler channel [Kanalname]",
+  "discord.streamelementshandler.channel.set": "StreamElements Spendenankündigungen werden nun im Kanal $1 gemacht.",
+  "discord.streamelementshandler.embed.title": "Neue Spende!"
+}

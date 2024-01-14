@@ -1,0 +1,22 @@
+{
+  "streamcommand.vod.404": "Keine Videos vorhanden!",
+  "streamcommand.vod.online": "Der Stream ist Live seit: $1 [$2]",
+  "streamcommand.vod.offline": "Der Stream ist offline. Letztes Video erstellt: [$1] [Length: $2]",
+  "streamcommand.playtime.offline": "$1 streamt gerade nicht.",
+  "streamcommand.playtime.online": "$1 ist seit $3 in der Kategorie $2",
+  "streamcommand.title.offline": "Der aktuelle Titel ist: $1",
+  "streamcommand.title.no.title": "Es gibt aktuell keinen Titel.",
+  "streamcommand.title.online": "Der aktuelle Titel ist: $1 Zeit: $2",
+  "streamcommand.title.set.usage": "Verwendung: !settitle [Streamtitel] Aktuell: $1",
+  "streamcommand.game.online": "Aktuelle Kategorie: $1 Dauer: $2",
+  "streamcommand.game.offline": "Aktuelle Kategorie: $1",
+  "streamcommand.game.no.game": "Aktuell ist keine Kategorie eingestellt.",
+  "streamcommand.game.set.usage": "Verwendung: !setgame [Kategorie] Aktuell: $1",
+  "streamcommand.communities.set.usage": "Verwendung: !setcommunities [Communities] Aktuell: $1",
+  "streamcommand.viewers": "Es schauen aktuell $1 Personen zu clymHype",
+  "streamcommand.online.offline": "Clym ist offline.",
+  "streamcommand.online.online": "Clym ist online.",
+  "streamcommand.createdat.404": "Bitte füge einen Channel hinzu.",
+  "streamcommand.createdat.error": "Entweder der Channel existiert nicht oder die Twitch AIP hat mal wieder versagt... Probier es am besten nochmal.",
+  "streamcommand.createdat": "Kanal: $1 | Erstellt am: $2"
+}

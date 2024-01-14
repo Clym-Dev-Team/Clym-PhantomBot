@@ -1,0 +1,9 @@
+{
+  "discord.streamlabshandler.usage": "Verwendung: !streamlabshandler [toggle / message / channel]",
+  "discord.streamlabshandler.toggle": "StreamLabs Spendenankündigungen wurden $1.",
+  "discord.streamlabshandler.message.usage": "Verwendung: !streamlabshandler message [Nachricht] - Tags: (name) (amount) (currency) (message)",
+  "discord.streamlabshandler.message.set": "StreamLabs Spendennachricht gesetzt zu: $1",
+  "discord.streamlabshandler.channel.usage": "Verwendung: !streamlabshandler channel [Kanalname]",
+  "discord.streamlabshandler.channel.set": "StreamLabs Spendenankündigungen werden nun im Kanal $1 gemacht",
+  "discord.streamlabshandler.embed.title": "Neue Spende!"
+}

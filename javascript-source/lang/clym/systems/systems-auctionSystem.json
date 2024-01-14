@@ -1,0 +1,16 @@
+{
+  "auctionsystem.usage": "Verwendung: !auction open [Wie viele Gebote] [Minimalstes Gebot] [Timer für automatisches Schließen]",
+  "auctionsystem.err.opened": "Es läuft bereits eine Auktion!",
+  "auctionsystem.opened": "Die Auktion ist nun eröffnet! Du kannst Gebote in Schritten von $1 abgeben. Kleinstes, erlaubtes Gebot sind $2! Gib Gebote mit \"!bid [Gebot]\" ab.",
+  "auctionsystem.auto.timer.msg": "Auktion endet automatisch in $1 Sekunden!",
+  "auctionsystem.err.closed": "Derzeit läuft keine Auktion.",
+  "auctionsystem.err.no.bids": "Auktion geschlossen! Niemand hat ein Gebot abgegeben.",
+  "auctionsystem.closed": "Auktion geschlossen! $1 hat die Auktion gewonnen, mit einem Gebot von $2!",
+  "auctionsystem.warn.force": "Die Auktion steht kurz vor dem Ende! Aktuelle:r Höchstbietende:r ist $1 mit einem Gebot von $2! Haben wir vielleicht noch $3?",
+  "auctionsystem.warn": "Aktuelle:r Höchstbietende:r ist $1 mit einem Gebot von $2!",
+  "auctionsystem.bid.usage": "Verwendung: !bid [Gebot]",
+  "auctionsystem.err.bid.minimum": "Du kannst nicht weniger als $1 bieten!",
+  "auctionsystem.err.points": "Du hast nicht genug $1 um zu bieten.",
+  "auctionsystem.err.increments": "Diese Auktion läuft in Schritten von $1!",
+  "auctionsystem.bid": "$1 bot gerade $2! Haben wir $3?"
+}

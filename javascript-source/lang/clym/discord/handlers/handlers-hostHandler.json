@@ -1,0 +1,9 @@
+{
+    "discord.hosthandler.usage": "Verwendung: !hosthandler [toggle / hostmessage / channel]",
+    "discord.hosthandler.host.toggle": "Benachrichtigungen für Hosts wurden $1.",
+    "discord.hosthandler.host.message.usage": "Verwendung: !hosthandler hostmessage [Nachricht] - Tags: (name) (viewers)",
+    "discord.hosthandler.host.message.set": "Host Nachricht geändert auf: $1",
+    "discord.hosthandler.channel.usage": "Verwendung: !hosthandler channel [Kanalname]",
+    "discord.hosthandler.channel.set": "Host-Ankündigungen werden nun im Kanal $1 gemacht.",
+    "discord.hosthandler.host.embedtitle": "Neuer Host!"
+}

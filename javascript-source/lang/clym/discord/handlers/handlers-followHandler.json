@@ -1,0 +1,9 @@
+{
+  "discord.followhandler.usage": "Verwendung: !followhandler [toggle / message / channel]",
+  "discord.followhandler.follow.toggle": "Follow Ankündigungen wurden $1.",
+  "discord.followhandler.follow.message.usage": "Verwendung: !followhandler message [Nachricht] - Tag: (name)",
+  "discord.followhandler.follow.message.set": "Follow Ankündigungs Nachricht gesetzt auf: $1",
+  "discord.followhandler.follow.channel.usage": "Verwendung: !followhandler channel [Kanalname]",
+  "discord.followhandler.follow.channel.set": "Follow-Ankündigungen werden nun im Kanal $1 gemacht.",
+  "discord.followhandler.follow.embedtitle": "Neuer Follower!"
+}

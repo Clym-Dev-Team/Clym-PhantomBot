@@ -1,0 +1,7 @@
+{
+  "discord.twitterhandler.tweet": "[Twitter Feed von]",
+  "discord.twitterhandler.usage": "Verwendung: !twitterhandler [toggle / channel]",
+  "discord.twitterhandler.toggle": "Twitter Benachrichtigungen wurden $1.",
+  "discord.twitterhandler.channel.usage": "Verwendung: !twitterhandler channel [Kanalname]",
+  "discord.twitterhandler.channel.set": "Twitter-Ankündigungen werden nun im Kanal $1 gemacht."
+}

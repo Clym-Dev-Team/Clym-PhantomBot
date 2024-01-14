@@ -1,0 +1,12 @@
+{
+  "discord.rolemanager.usage": "Verwendung: !rolemanager [togglesyncpermissions / togglesyncranks / blacklist]",
+  "discord.rolemanager.permission.sync.on": "Bot Berechtigungen werden nun mit snychronisierten Accounts Synchronisiert.",
+  "discord.rolemanager.permission.sync.off": "Bot Berechtigungen werden nicht mehr Synchronisiert.",
+  "discord.rolemanager.ranks.sync.on": "Ränge werden nun mit snychronisierten Accounts Synchronisiert.",
+  "discord.rolemanager.ranks.sync.off": "Ränge werden nicht mehr Synchronisiert.",
+  "discord.rolemanager.blacklist.usage": "Verwendung: !rolemanager blacklist [add / remove] [Berechtigung oder Rang] - Verhindert, dass Rang oder Berechtigung zugewiesen werden kann.",
+  "discord.rolemanager.blacklist.add.usage": "Verwendung:!rolemanager blacklist add [Berechtigung oder Rang] - Verhindert, dass Rang oder Berechtigung zugewiesen werden kann.",
+  "discord.rolemanager.blacklist.add.success": "Gruppe $1 wurde zur Verbotsliste hinzugefügt!",
+  "discord.rolemanager.blacklist.remove.usage": "Verwendung: !rolemanager blacklist remove [Berechtigung oder Rang]",
+  "discord.rolemanager.blacklist.remove.success": "Gruppe $1 von der Verbotsliste entfernt."
+}

@@ -1,0 +1,8 @@
+{
+  "highlightcommand.highlight.offline": "Höhepunkte können nur gesetzt werden, wenn der Stream online ist!",
+  "highlightcommand.highlight.usage": "Verwendung: !highlight [Beschreibung] (Verwende Datumsstempel für Zeitzone: $1)",
+  "highlightcommand.highlight.success": "Höhepunkte erfolgreich mit dem Zeitstempel $1 gespeichert.",
+  "highlightcommand.gethighlights.no-highlights": "Es liegen aktuell keine Höhepunkte vor.",
+  "highlightcommand.clearhighlights.success": "Höhepunkte wurden bereinigt.",
+  "highlightcommand.highlights": "Höhepunkte: $1"
+}

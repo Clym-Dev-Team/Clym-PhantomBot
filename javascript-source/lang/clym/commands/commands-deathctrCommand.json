@@ -1,0 +1,11 @@
+{
+    "deathcounter.set-error": "Gebe einen neuen gültigen Wert für den Tode Counter an.",
+    "deathcounter.set-success": "Todes Counter für $1 auf $2 gesetzt.",
+    "deathcounter.add-success": "$1 ist wieder in $2 gestorben, es sind nun $3 Tode. F FeelsBadMan ",
+    "deathcounter.sub-success": "Einen Tod zurück genommen, es sind jetzt $2 Tode in $1.",
+    "deathcounter.sub-zero": "Der Todes Counter für $1 ist bereits bei Null, tiefer gehts nicht!",
+    "deathcounter.counter": "$1 ist $3 mal in $2 gestorben. F FeelsBadMan ",
+    "deathcounter.none": "$1 ist noch nicht in $2 gestorben... noch nicht!",
+    "deathcounter.reset": "Der Todes Counter von $2 für $1 ist auf 0 zurückgesetzt.",
+    "deathcounter.reset-nil": "Der Todes Counter für $1 ist bereits 0."
+}

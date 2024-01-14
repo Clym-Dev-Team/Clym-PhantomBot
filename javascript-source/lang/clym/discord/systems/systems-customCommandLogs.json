@@ -1,0 +1,21 @@
+{
+  "discord.customcommandlogs.sender": "Von",
+  "discord.customcommandlogs.add.command": "Benutzerdefinierter Befehl erstellt",
+  "discord.customcommandlogs.add.response": "Antwort",
+  "discord.customcommandlogs.edit.command": "Benutzerdefinierter Befehl bearbeitet",
+  "discord.customcommandlogs.edit.response": "Neue Antwort",
+  "discord.customcommandlogs.delete.command": "Benutzerdefinierter Befehl gelöscht",
+  "discord.customcommandlogs.alias.command": "Benutzerdefinierter Alias erstellt",
+  "discord.customcommandlogs.alias.target": "an",
+  "discord.customcommandlogs.alias.delete.command": "Benutzerdefinierter Alias gelöscht",
+  "discord.customcommandlogs.set.perm.command": "Befehlsberechtigungen aktualisiert",
+  "discord.customcommandlogs.set.perm.group": "Neue Gruppe",
+  "discord.customcommandlogs.set.price.command": "Befehlspreis aktualisiert",
+  "discord.customcommandlogs.set.price.amount": "Neuer Preis",
+  "discord.customcommandlogs.set.pay.command": "Befehlsbelohnung aktualisiert",
+  "discord.customcommandlogs.set.pay.amount": "Neue Belohnung",
+  "discord.customcommandlogs.disable.command": "Befehl deaktiviert",
+  "discord.customcommandlogs.enable.command": "Befehl aktiviert",
+  "discord.customcommandlogs.reset.command": "Zurücksetzen des Befehlszählers",
+  "discord.customcommandlogs.reset.count": "Neuer Wert"
+}

@@ -1,0 +1,20 @@
+{
+  "welcomesystem.set.autowelcome.enabled": "Automatische Begrüßung aktiviert. $1 wird nun neue Chatter willkommen heißen.",
+  "welcomesystem.set.autowelcome.disabled": "Automatische Begrüßung deaktiviert.",
+  "welcomesystem.set.message.empty": "$1 wird nur erstmalige Chatter begrüßen.",
+  "welcomesystem.set.message.success": "$1 wird neue Chatter mit \"$2\" begrüßen.",
+  "welcomesystem.set.firstmessage.empty": "$1 begrüßt erstmalige Chatter mit der Standardnachricht.",
+  "welcomesystem.set.firstmessage.success": "$1 begrüßt erstmalige Chatter mit: \"$2\"",
+  "welcomesystem.set.cooldown.show": "Aktuelle Abklingzeit $1 Stunden. Verwende: \"!welcome cooldown [Stunden]\" um dies zu ändern.",
+  "welcomesystem.set.cooldown.usage": "Verwendung: !welcome cooldown [Stunden] z.B. !welcome cooldown 6",
+  "welcomesystem.set.cooldown.success": "Die Begrüßungsabklingzeit wurde auf $1 Stunden festgelegt.",
+  "welcomesystem.set.disableuser.usage": "Verwendung: !welcome disable [Nutzer]",
+  "welcomesystem.set.disableuser.fail": "Die Begrüßung von $1 ist bereits deaktiviert.",
+  "welcomesystem.set.disableuser.success": "$1 wird $2 nicht willkommen heißen.",
+  "welcomesystem.set.enableuser.usage": "Verwendung: !welcome enable [Nutzer].",
+  "welcomesystem.set.enableuser.fail": "Die Begrüßung ist bereits aktiviert.",
+  "welcomesystem.set.enableuser.success": "$1 wird $2 willkommen heißen.",
+  "welcomesystem.generalusage": "Verwendung: !welcome [toggle | setmessage text | setfirstmessage text | disable user | enable user]. Tags für Nachrichtentext: (names), (1 Text für einen Namen), (2 für Zwei), (3 für Drei oder mehr Namen)",
+  "welcomesystem.names.join1": ", ",
+  "welcomesystem.names.join2": " und "
+}

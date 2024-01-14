@@ -1,0 +1,9 @@
+{
+  "wordcounter.usage": "Verwendung: !wordcounter [add / remove] !count [Wort]",
+  "wordcounter.add.usage": "Verwendung: !wordcounter add [Wort]",
+  "wordcounter.added": " wurde zur Wortzählliste hinzugefügt.",
+  "wordcounter.remove.usage": "Verwendung: !wordcounter remove [Wort]",
+  "wordcounter.err.404": "Das Wort steht nicht in der Zählliste.",
+  "wordcounter.removed": " wurde von der Wortzählliste entfernt.",
+  "wordcounter.count": "$1 wurde $2 mal gesagt."
+}

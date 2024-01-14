@@ -1,0 +1,13 @@
+{
+  "discord.greetingssystem.usage": "Verwendung: !greetingssystem [jointoggle / parttoggle / joinmessage / partmessage / joinrole / channel]",
+  "discord.greetingssystem.join.toggle": "Eintrittsbenachrichtigungen wurden $1.",
+  "discord.greetingssystem.part.toggle": "Austrittsbenachrichtigungen wurden $1.",
+  "discord.greetingssystem.join.message.usage": "Verwendung: !greetingssystem joinmessage [Nachricht] - Tags: (name), (role), and (@name)",
+  "discord.greetingssystem.join.message.set": "Eintrittsbenachrichtigungsnachricht wurde festgelegt zu: $1.",
+  "discord.greetingssystem.part.message.usage": "Verwendung: !greetingssystem partmessage [Nachricht] - Tags: (name) and (@name)",
+  "discord.greetingssystem.part.message.set": "Austrittsbenachrichtigungsnachricht wurde festgelegt zu: $1.",
+  "discord.greetingssystem.channel.usage": "Verwendung: !greetingssystem channel [Kanalname]",
+  "discord.greetingssystem.channel.set": "Begrüßungsankündigungen werden nun im Kanal $1 gemacht.",
+  "discord.greetingssystem.joinrole.usage": "Verwendung: !greetingssystem joinrole [Rollenname]",
+  "discord.greetingssystem.joinrole.set": "Standardrolle wurde zu $1 festgelegt."
+}

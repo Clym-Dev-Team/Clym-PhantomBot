@@ -1,0 +1,6 @@
+{
+  "gamescanhandler.gamescan.usage": "Verwendung: !gamescan [Name vom Spiel]",
+  "gamescanhandler.gamescan.notplayed": "$1 hat $2 noch nicht gespielt!",
+  "gamescanhandler.gamescan.hasplayeddates": "$1 hat $2 schon gespielt auf: $3, (AntiSpam +$4 Daten gefunden.)",
+  "gamescanhandler.gamescan.hasplayed": "$1 hat $2 gespielt am: $3"
+}

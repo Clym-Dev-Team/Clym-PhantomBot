@@ -1,0 +1,10 @@
+{
+  "top5.default": "Top $1 $2: $3",
+  "top5.points-disabled": "Coins sind deaktiviert.",
+  "top5.amount.points.usage": "Verwendung: !topamount [Anzahl] - Legen Sie fest, wie viele Zuschauer in der !top Punkte Liste angezeigt werden.",
+  "top5.amount.max": "Die maximale Anzahl an Nutzern ist 15.",
+  "top5.amount.points.set": "$1 Nutzer werden jetzt im !top Befehl angezeigt.",
+  "top5.amount.time.usage": "Verwendung: !toptimeamount [Anzahl] - Legen Sie fest, wie viele Zuschauer in der !toptime Liste angezeigt werden.",
+  "top5.amount.time.set": "$1 Zuschauer werden jetzt im !toptime Befehl angeziegt.",
+  "top5.reloadtopbots": "Veraltet. Bitte nutze !reloadbots"
+}

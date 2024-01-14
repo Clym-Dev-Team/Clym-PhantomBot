@@ -1,0 +1,11 @@
+{
+  "keywordhandler.add.usage": "Verwendung: !keyword add [Flags] [Schlüsselwort] [Antwort]. Flags können leer oder eine beliebige Kombination von \"--regex\", \"--case-sensitive\" sein.",
+  "keywordhandler.keyword.404": "Dieses Schlüsselwort existiert nicht!",
+  "keywordhandler.keyword.added": "Schlüsselwort \"$1\" hinzugefügt!",
+  "keywordhandler.keyword.removed": "Schlüsselwort, \"$1\", entfernt!",
+  "keywordhandler.keyword.usage": "Verwendung: !keyword [add / remove / cooldown] [Schlüsselwort]",
+  "keywordhandler.remove.usage": "Verwendung: !keyword remove [Schlüsselwort]",
+  "keywordhandler.cooldown.usage": "Verwendung: !keyword cooldown [Schlüsselwort] [Sekunden] - Verwende -1 um die Abklingzeit zu entfernen.",
+  "keywordhandler.cooldown.removed": "Abklingzeit für Schlüsselwort \"$1\" wurde entfernt.",
+  "keywordhandler.cooldown.set": "Abklingzeit für Schlüsselwort \"$1\" wurde auf $2 Sekunden gesetzt."
+}
