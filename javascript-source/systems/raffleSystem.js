@@ -23,29 +23,29 @@
  */
 (function () {
     let entries = [],
-            entered = {},
-            keyword = '',
-            entryFee = 0,
-            timerTime = 0,
-            startTime = 0,
-            followers = false,
-            subscribers = false,
-            usePoints = true,
-            status = false,
-            sendMessages = $.getSetIniDbBoolean('raffleSettings', 'raffleMSGToggle', false),
-            openDraw = $.getSetIniDbBoolean('raffleSettings', 'raffleOpenDraw', false),
-            whisperWinner = $.getSetIniDbBoolean('raffleSettings', 'raffleWhisperWinner', false),
-            noRepickSame = $.getSetIniDbBoolean('raffleSettings', 'noRepickSame', true),
-            raffleMessage = $.getSetIniDbString('raffleSettings', 'raffleMessage', 'A raffle is still opened! Type (keyword) to enter. (entries) users have entered so far.'),
-            messageInterval = $.getSetIniDbNumber('raffleSettings', 'raffleMessageInterval', 0),
-            subscriberBonus = $.getSetIniDbNumber('raffleSettings', 'subscriberBonusRaffle', 1),
-            regularBonus = $.getSetIniDbNumber('raffleSettings', 'regularBonusRaffle', 1),
-            interval, timeout, followMessage = '',
-            saveStateInterval,
-            timerMessage = '',
-            lastWinners = [],
-            hasDrawn = false,
-            _entriesLock = new Packages.java.util.concurrent.locks.ReentrantLock();
+        entered = {},
+        keyword = '',
+        entryFee = 0,
+        timerTime = 0,
+        startTime = 0,
+        followers = false,
+        subscribers = false,
+        usePoints = true,
+        status = false,
+        sendMessages = $.getSetIniDbBoolean('raffleSettings', 'raffleMSGToggle', false),
+        openDraw = $.getSetIniDbBoolean('raffleSettings', 'raffleOpenDraw', false),
+        whisperWinner = $.getSetIniDbBoolean('raffleSettings', 'raffleWhisperWinner', false),
+        noRepickSame = $.getSetIniDbBoolean('raffleSettings', 'noRepickSame', true),
+        raffleMessage = $.getSetIniDbString('raffleSettings', 'raffleMessage', 'A raffle is still opened! Type (keyword) to enter. (entries) users have entered so far.'),
+        messageInterval = $.getSetIniDbNumber('raffleSettings', 'raffleMessageInterval', 0),
+        subscriberBonus = $.getSetIniDbNumber('raffleSettings', 'subscriberBonusRaffle', 1),
+        regularBonus = $.getSetIniDbNumber('raffleSettings', 'regularBonusRaffle', 1),
+        interval, timeout, followMessage = '',
+        saveStateInterval,
+        timerMessage = '',
+        lastWinners = [],
+        hasDrawn = false,
+        _entriesLock = new Packages.java.util.concurrent.locks.ReentrantLock();
 
     /**
      * @function reloadRaffle
@@ -71,13 +71,13 @@
      */
     function open(username, arguments) {
         let args,
-                i = 1,
-                tempKeyword,
-                tempFollowMessage = '',
-                tempUsePoints,
-                tempFollowers = false,
-                tempSubscribers = false,
-                tempEntryFee = 0;
+            i = 1,
+            tempKeyword,
+            tempFollowMessage = '',
+            tempUsePoints,
+            tempFollowers = false,
+            tempSubscribers = false,
+            tempEntryFee = 0;
 
         /* Check if there's a raffle already opened */
         if (status) {
@@ -193,12 +193,12 @@
         entered = $.getIniDbArray('raffleState', 'entered', {});
 
         let tempKeyword = $.optIniDbString('raffleState', 'keyword'),
-                tempEntryFee = $.optIniDbNumber('raffleState', 'entryFee'),
-                tempTimerTime = $.optIniDbNumber('raffleState', 'timerTime'),
-                tempStartTime = $.optIniDbNumber('raffleState', 'startTime'),
-                tempFollowers = $.optIniDbBoolean('raffleState', 'isFollowersOnly'),
-                tempSubscribers = $.optIniDbBoolean('raffleState', 'isSubscribersOnly'),
-                tempUsePoints = $.optIniDbBoolean('raffleState', 'usePoints');
+            tempEntryFee = $.optIniDbNumber('raffleState', 'entryFee'),
+            tempTimerTime = $.optIniDbNumber('raffleState', 'timerTime'),
+            tempStartTime = $.optIniDbNumber('raffleState', 'startTime'),
+            tempFollowers = $.optIniDbBoolean('raffleState', 'isFollowersOnly'),
+            tempSubscribers = $.optIniDbBoolean('raffleState', 'isSubscribersOnly'),
+            tempUsePoints = $.optIniDbBoolean('raffleState', 'usePoints');
 
 
         if (entries.length === 0 || entered.length === 0 || !tempKeyword.isPresent() || !tempEntryFee.isPresent() || !tempTimerTime.isPresent() || !tempStartTime.isPresent()
@@ -381,27 +381,36 @@
      * @param {Array} winners the new winners drawn
      */
     function winningMsg(winners) {
-
-        //Special case !raffle lastWinners
+        // [Start] Clym-Dev-Team modified to send discord webhooks
+        /* Check if anyone entered the raffle */
         if (winners.length === 0) {
             $.say($.lang.get('rafflesystem.winner.none'));
-        }
-
-        if (winners.length === 1) {
-            let followMsg = ($.user.isFollower(winners[0].toLowerCase()) ? $.lang.get('rafflesystem.isfollowing') : $.lang.get('rafflesystem.isnotfollowing'));
-            $.say($.lang.get('rafflesystem.winner.single', $.viewer.getByLogin(winners[0]).name(), followMsg));
             return;
         }
 
-        let msg = $.lang.get('rafflesystem.winner.multiple', winners.join(', '));
+        var discord = Packages.com.orciument.DiscordWebhookWrapper();
+        var formatedWinners = winners.map(name => "`" + name + "`").join(", ");
+        discord.setContent('**Verlosung:** *' + $.inidb.get('raffleState', 'keyword') + '*  ||  **Gewinner:in:** ' + formatedWinners);
+        discord.execute();
 
-        if (msg.length >= 500) { // I doubt anybody will draw more winners than we can fit in 2 messages
-            let i = msg.substring(0, 500).lastIndexOf(",");
-            $.say(msg.substring(0, i));
-            $.say(msg.substring(i + 1, msg.length));
-        } else {
-            $.say(msg);
-        }
+        // let msg = $.lang.get('rafflesystem.winner.multiple', winners.join(', '));
+        //
+        // if (winners.length === 1) {
+        //     let followMsg = ($.user.isFollower(winners[0].toLowerCase()) ? $.lang.get('rafflesystem.isfollowing') : $.lang.get('rafflesystem.isnotfollowing'));
+        //     $.say($.lang.get('rafflesystem.winner.single', $.viewer.getByLogin(winners[0]).name(), followMsg));
+        //     return;
+        // }
+        //
+        // let msg = $.lang.get('rafflesystem.winner.multiple', winners.join(', '));
+        //
+        // if (msg.length >= 500) { // I doubt anybody will draw more winners than we can fit in 2 messages
+        //     let i = msg.substring(0, 500).lastIndexOf(",");
+        //     $.say(msg.substring(0, i));
+        //     $.say(msg.substring(i + 1, msg.length));
+        // } else {
+        //     $.say(msg);
+        // }
+        // [END] Clym-Dev-Team Modifications
     }
 
     /**
@@ -549,11 +558,11 @@
      */
     $.bind('command', function (event) {
         let sender = event.getSender(),
-                command = event.getCommand(),
-                arguments = event.getArguments(),
-                args = event.getArgs(),
-                action = args[0],
-                subAction = args[1];
+            command = event.getCommand(),
+            arguments = event.getArguments(),
+            args = event.getArgs(),
+            action = args[0],
+            subAction = args[1];
 
         if ($.equalsIgnoreCase(command, 'raffle')) {
             if (action === undefined) {
@@ -602,13 +611,15 @@
                 return;
             }
 
-            /**
-             * @commandpath raffle lastWinners - Prints the last raffle winners
-             */
-            if ($.equalsIgnoreCase(action, 'lastWinners')) {
-                winningMsg(lastWinners);
-                return;
-            }
+            // [START] CLYM-DEV-TEAM removed because we don't need it, and the communication to the user would be terrible, because we output into the discord channel
+            // /**
+            //  * @commandpath raffle lastWinners - Prints the last raffle winners
+            //  */
+            // if ($.equalsIgnoreCase(action, 'lastWinners')) {
+            //     winningMsg(lastWinners);
+            //     return;
+            // }
+            // [END]
 
             /**
              * @commandpath raffle reset - Resets the raffle.
@@ -744,7 +755,9 @@
         $.registerChatSubcommand('raffle', 'draw', $.PERMISSION.Mod);
         $.registerChatSubcommand('raffle', 'reset', $.PERMISSION.Mod);
         $.registerChatSubcommand('raffle', 'results', $.PERMISSION.Viewer);
-        $.registerChatSubcommand('raffle', 'lastWinners', $.PERMISSION.Mod);
+        // [START] CLYM-DEV-TEAM removed because we disabled the function
+        // $.registerChatSubcommand('raffle', 'lastWinners', $.PERMISSION.Mod);
+        // [END]
         $.registerChatSubcommand('raffle', 'subscriberbonus', $.PERMISSION.Admin);
         $.registerChatSubcommand('raffle', 'regularbonus', $.PERMISSION.Admin);
         $.registerChatSubcommand('raffle', 'toggleopendraw', $.PERMISSION.Admin);

@@ -262,21 +262,28 @@
     }
 
     function winningMsg(winners) {
-        if (winners.length === 1) {
-            let followMsg = ($.user.isFollower(winners[0].toLowerCase()) ? $.lang.get('rafflesystem.isfollowing') : $.lang.get('rafflesystem.isnotfollowing'));
-            $.say($.lang.get('ticketrafflesystem.winner.single', $.viewer.getByLogin(winners[0]).name(), followMsg));
-            return;
-        }
+        // [Start] Clym-Dev-Team modified to send discord webhooks
+        var discord = Packages.com.orciument.DiscordWebhookWrapper();
+        var formatedWinners = winners.map(name => "`" + name + "`").join(", ");
+        discord.setContent('**Verlosung:** *' + $.inidb.get('raffleState', 'keyword') + '*  ||  **Gewinner:in:** ' + formatedWinners);
+        discord.execute();
 
-        let msg = $.lang.get('ticketrafflesystem.winner.multiple', winners.join(', '));
-
-        if (msg.length >= 500) { // I doubt anybody will draw more winners than we can fit in 2 messages
-            let i = msg.substring(0, 500).lastIndexOf(",");
-            $.say(msg.substring(0, i));
-            $.say(msg.substring(i + 1, msg.length));
-        } else {
-            $.say(msg);
-        }
+        // if (winners.length === 1) {
+        //     let followMsg = ($.user.isFollower(winners[0].toLowerCase()) ? $.lang.get('rafflesystem.isfollowing') : $.lang.get('rafflesystem.isnotfollowing'));
+        //     $.say($.lang.get('ticketrafflesystem.winner.single', $.viewer.getByLogin(winners[0]).name(), followMsg));
+        //     return;
+        // }
+        //
+        // let msg = $.lang.get('ticketrafflesystem.winner.multiple', winners.join(', '));
+        //
+        // if (msg.length >= 500) { // I doubt anybody will draw more winners than we can fit in 2 messages
+        //     let i = msg.substring(0, 500).lastIndexOf(",");
+        //     $.say(msg.substring(0, i));
+        //     $.say(msg.substring(i + 1, msg.length));
+        // } else {
+        //     $.say(msg);
+        // }
+        // [END] Clym-Dev-Team Modifications
     }
 
     function enterRaffle(user, event, arg) {
