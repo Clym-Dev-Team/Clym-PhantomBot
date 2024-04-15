@@ -252,7 +252,7 @@
                 temp = $.usernameResolveIgnoreEx(temp);
             }
 
-            res = temp;
+            res = '@' + temp;
         }
         return {
             result: res,
