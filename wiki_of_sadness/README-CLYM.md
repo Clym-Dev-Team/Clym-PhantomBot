@@ -18,6 +18,24 @@
 - It is not possible to open a TRaffle with 0 Coins
 - The Command field in TRaffles does not work
 - You can use `!ticket` or `!tickets` to enter a TRaffle
+- warning "May not be a moderator" is actually caused by the bot trying to send a message between leaving and rejoining the chat
+![img.png](img.png)
+  Der AllowSendMessages boolean ist wohl ein feature um nicht unnötig errors von twitch zu kassieren, während man eh nicht im chat ist, und versuche eine nachricht zu senden.
+  Falls die function die eine nachricht senden möchte allerdings sieht das AllowSendMessages false ist, startet sie eine diagnose funktion. Diese covered andere gründe warum AllowSendMessages false sein könnte, aber nicht das man einfach nur nicht im chat ist, daher kommt diese misleading fehlernachricht raus. 
+  Das alles gibt mit ein gefühl das der beschrieben fall ein edge case sein sollte, und somit vermutlich der bot auch nicht andauernd neu in den chat rejoinen sollte.
+
+  Involved Places:
+
+  TwitchSession.java:194@onNext(...)
+
+  TwitchSession.java:198@onNext(...)
+
+  TwitchValidate.java:278@hasOAuthInconsistencies(...)
+  
+  MessageQueue.java:52@setAllowSendMessages(...)
+
+  TwitchSession.java:134@getModerationStatus(...)
+  
 
 # <ins>Update Checklist</ins>
 
