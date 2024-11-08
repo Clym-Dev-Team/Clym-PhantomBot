@@ -8,7 +8,7 @@ Today we will discuss the outer crime against security that is the phantombot au
 
 ## Reason
 This is my understanding of the authentication and login flow based on my tests and source code
-1. The password is hashed
+1. The password is hashed with SHA256 (at least)
 2. the token is formend from `USERNAME:HAHED_PASSWORD`
 3. this token is then base64 encoded
 4. this is your access token, this is sent over the wire as the panelLogin
